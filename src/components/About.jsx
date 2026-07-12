@@ -29,7 +29,7 @@ function About() {
 
           <div className="about-stats">
             <div className="stat-card">
-              <span className="stat-number">10+</span>
+              <span className="stat-number">3</span>
               <span className="stat-label">Projects Built</span>
             </div>
             <div className="stat-card">
