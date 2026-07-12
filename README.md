@@ -1,50 +1,53 @@
-# 🎓 Student Portfolio — Meet Nakarani
+# Student Portfolio - Meet Nakarani
 
-Welcome to my personal student portfolio website! Built with modern web standards, this clean, minimalist, and fully responsive single-page application highlights my background, core statistics, technical skills (complete with authentic brand logos), and contact details.
-
-🌐 **Live GitHub Repository:** [github.com/MeetKumar6789/student-portfolio](https://github.com/MeetKumar6789/student-portfolio)
+Welcome to my personal student portfolio website. This single-page application is built with React and Vite, using a clean light-theme design, modular component structure, and custom SVGs to showcase my background, statistics, and technical skills.
 
 ---
 
-## ✨ Features
-*   **Modern Light Design:** Crafted with a curated white & soft grey color system, featuring subtle glassmorphic elements and dark grey typography.
-*   **Reusable Component Architecture:** Separated into 4 primary components ([Header](src/components/Header.jsx), [About](src/components/About.jsx), [Skills](src/components/Skills.jsx), and [Footer](src/components/Footer.jsx)).
-*   **Fidelity SVGs:** Embedded authentic brand logo assets (including Slonik for *PostgreSQL* and the multi-color *Figma* logo).
-*   **Micro-Animations:** Fluid fade-ins, hover lifts on cards, and animated interactive progress bars.
-*   **Optimized Performance:** Built on Vite with near-instant page load and bundle build speeds.
+## Features
+*   **Modular Component Architecture:** Structured using independent React components: Header, About, Skills, and Footer.
+*   **Light Theme Design:** Clean white and soft grey background palettes with high-contrast typography and subtle glassmorphic elements.
+*   **High-Fidelity SVGs:** Integrated vector brand logos including the multi-color Figma logo and the detailed PostgreSQL Slonik logo.
+*   **Performance Optimized:** Configured on Vite for instant Hot Module Replacement (HMR) and optimized production bundles.
 
 ---
 
-## 🛠️ Tech Stack
-*   **Framework:** React 19 (Functional Components & Props)
-*   **Bundler:** Vite 8
-*   **Styling:** Vanilla CSS (CSS Variables / Tokens, Grid, Flexbox)
-*   **Linting:** Oxlint (for code quality & performance)
-*   **Icons:** Simple Icons & Devicon (Custom SVG Paths)
+## Technical Stack & Architecture
+
+This application implements core React concepts:
+
+*   **Vite Development Environment:** Scaffolded using Vite's React template for fast builds and optimized assets.
+*   **Component-Based UI:** The page layout is composed of four modular components assembled in App.jsx. No JSX markup or rendering logic is duplicated.
+*   **Props System:** Data is managed centrally in App.jsx and passed to child components via props.
+    *   **Header Component:** Receives the name and title strings.
+    *   **Skills Component:** Receives the array of technical skills, including names, progress levels, and SVGs.
+    *   **Footer Component:** Receives the contact email and social links details.
+*   **Embedded Expressions (JSX):** Evaluates JavaScript arrays and variables dynamically inside the markup using curly brace syntax.
+*   **Map Method Rendering:** Skills and footer social link cards are mapped dynamically from data arrays to avoid manual replication.
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 ```
 student-portfolio/
 ├── index.html
 ├── src/
 │   ├── main.jsx              ← React entry point
-│   ├── index.css             ← Global reset, theme tokens, and animations
-│   ├── App.jsx               ← Root orchestrator passing props to components
+│   ├── index.css             ← Global reset, theme variables, and keyframe animations
+│   ├── App.jsx               ← Root component orchestrating data flow
 │   └── components/
-│       ├── Header.jsx + .css  ← Welcome banner & navigation
-│       ├── About.jsx  + .css  ← Bio & quantitative coding statistics
-│       ├── Skills.jsx + .css  ← Technical stack grid with progress bars
-│       └── Footer.jsx + .css  ← Contact handles & brand social links
+│       ├── Header.jsx + .css  ← Landing section, nav header
+│       ├── About.jsx  + .css  ← Profile bio, quantitative statistics
+│       ├── Skills.jsx + .css  ← Tech skills grid with level bars
+│       └── Footer.jsx + .css  ← Email and social media directory
 ```
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
-Make sure you have [Node.js](https://nodejs.org/) installed.
+Ensure you have Node.js installed on your system.
 
 ### Installation
 1. Clone the repository:
@@ -58,15 +61,14 @@ Make sure you have [Node.js](https://nodejs.org/) installed.
    npm install
    ```
 
-3. Run the local development server:
+3. Run the development server:
    ```bash
    npm run dev
    ```
-   Open your browser to the local port (usually `http://localhost:5173`) to view the application!
 
 ### Production Build
-To generate a static build of the application:
+To build the static application for production:
 ```bash
 npm run build
 ```
-The optimized bundle will be compiled inside the `dist/` directory, ready to be hosted on GitHub Pages, Vercel, or Netlify.
+This outputs optimized static assets in the `dist/` directory, ready to deploy.
