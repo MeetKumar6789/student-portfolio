@@ -1,16 +1,72 @@
-# React + Vite
+# 🎓 Student Portfolio — Meet Nakarani
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Welcome to my personal student portfolio website! Built with modern web standards, this clean, minimalist, and fully responsive single-page application highlights my background, core statistics, technical skills (complete with authentic brand logos), and contact details.
 
-Currently, two official plugins are available:
+🌐 **Live GitHub Repository:** [github.com/MeetKumar6789/student-portfolio](https://github.com/MeetKumar6789/student-portfolio)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ Features
+*   **Modern Light Design:** Crafted with a curated white & soft grey color system, featuring subtle glassmorphic elements and dark grey typography.
+*   **Reusable Component Architecture:** Separated into 4 primary components ([Header](src/components/Header.jsx), [About](src/components/About.jsx), [Skills](src/components/Skills.jsx), and [Footer](src/components/Footer.jsx)).
+*   **Fidelity SVGs:** Embedded authentic brand logo assets (including Slonik for *PostgreSQL* and the multi-color *Figma* logo).
+*   **Micro-Animations:** Fluid fade-ins, hover lifts on cards, and animated interactive progress bars.
+*   **Optimized Performance:** Built on Vite with near-instant page load and bundle build speeds.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the Oxlint configuration
+## 🛠️ Tech Stack
+*   **Framework:** React 19 (Functional Components & Props)
+*   **Bundler:** Vite 8
+*   **Styling:** Vanilla CSS (CSS Variables / Tokens, Grid, Flexbox)
+*   **Linting:** Oxlint (for code quality & performance)
+*   **Icons:** Simple Icons & Devicon (Custom SVG Paths)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+---
+
+## 📂 Project Structure
+```
+student-portfolio/
+├── index.html
+├── src/
+│   ├── main.jsx              ← React entry point
+│   ├── index.css             ← Global reset, theme tokens, and animations
+│   ├── App.jsx               ← Root orchestrator passing props to components
+│   └── components/
+│       ├── Header.jsx + .css  ← Welcome banner & navigation
+│       ├── About.jsx  + .css  ← Bio & quantitative coding statistics
+│       ├── Skills.jsx + .css  ← Technical stack grid with progress bars
+│       └── Footer.jsx + .css  ← Contact handles & brand social links
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+Make sure you have [Node.js](https://nodejs.org/) installed.
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/MeetKumar6789/student-portfolio.git
+   cd student-portfolio
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Run the local development server:
+   ```bash
+   npm run dev
+   ```
+   Open your browser to the local port (usually `http://localhost:5173`) to view the application!
+
+### Production Build
+To generate a static build of the application:
+```bash
+npm run build
+```
+The optimized bundle will be compiled inside the `dist/` directory, ready to be hosted on GitHub Pages, Vercel, or Netlify.
