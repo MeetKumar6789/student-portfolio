@@ -7,7 +7,16 @@
 
 /* ─── Design Tokens ─── */
 :root {
-  /* Colors — Light Theme */
+  /* Typography */
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Outfit', 'Inter', system-ui, sans-serif;
+
+  /* Gradients */
+  --gradient-accent:  linear-gradient(135deg, #6366f1, #a855f7);
+  --accent:           #6366f1;
+  --accent-secondary: #a855f7;
+  
+  /* Defaults (mapped to light theme) */
   --bg-primary:       #ffffff;
   --bg-secondary:     #f5f7fa;
   --bg-card:          #ffffff;
@@ -15,20 +24,35 @@
   --text-primary:     #1a1a2e;
   --text-secondary:   #555570;
   --text-muted:       #8e8ea0;
-  --accent:           #6366f1;
-  --accent-secondary: #a855f7;
+  --shadow-sm:        0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md:        0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-lg:        0 8px 30px rgba(0, 0, 0, 0.08);
+}
 
-  /* Gradients */
-  --gradient-accent:  linear-gradient(135deg, #6366f1, #a855f7);
+.dark-theme {
+  --bg-primary:       #0a0a14;
+  --bg-secondary:     #0e0e1a;
+  --bg-card:          #141424;
+  --border:           rgba(255, 255, 255, 0.07);
+  --text-primary:     #f0f0f5;
+  --text-secondary:   #a0a0b8;
+  --text-muted:       #6b6b80;
+  --shadow-sm:        0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md:        0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg:        0 8px 30px rgba(0, 0, 0, 0.5);
+}
 
-  /* Shadows */
-  --shadow-sm:  0 1px 3px rgba(0, 0, 0, 0.06);
-  --shadow-md:  0 4px 16px rgba(0, 0, 0, 0.06);
-  --shadow-lg:  0 8px 30px rgba(0, 0, 0, 0.08);
-
-  /* Typography */
-  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
-  --font-heading: 'Outfit', 'Inter', system-ui, sans-serif;
+.light-theme {
+  --bg-primary:       #ffffff;
+  --bg-secondary:     #f5f7fa;
+  --bg-card:          #ffffff;
+  --border:           #e2e5ed;
+  --text-primary:     #1a1a2e;
+  --text-secondary:   #555570;
+  --text-muted:       #8e8ea0;
+  --shadow-sm:        0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md:        0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-lg:        0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
 /* ─── Reset & Base ─── */
@@ -121,4 +145,11 @@ img {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(99, 102, 241, 0.55);
+}
+
+.main-content {
+  margin-top: 70px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }

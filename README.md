@@ -1,14 +1,18 @@
 # Student Portfolio - Meet Nakarani
 
-Welcome to my personal student portfolio website. This single-page application is built with React and Vite, using a clean light-theme design, modular component structure, and custom SVGs to showcase my background, statistics, and technical skills.
+Welcome to my personal student portfolio website. This project has been extended to include dynamic client-side routing, advanced state management, and responsiveness.
 
 ---
 
 ## Features
 *   **Modular Component Architecture:** Structured using independent React components: Header, About, Skills, and Footer.
-*   **Light Theme Design:** Clean white and soft grey background palettes with high-contrast typography and subtle glassmorphic elements.
-*   **High-Fidelity SVGs:** Integrated vector brand logos including the multi-color Figma logo and the detailed PostgreSQL Slonik logo.
-*   **Performance Optimized:** Configured on Vite for instant Hot Module Replacement (HMR) and optimized production bundles.
+*   **Client-Side Routing:** Built with `react-router-dom` (v6) to navigate across pages instantly without triggering full browser reloads.
+*   **Dynamic Theme Toggle:** Swaps between a dark mode and a light theme in real-time, modifying the class on the root element.
+*   **Interactive Academics Tooltip:** Implements collapsible visibility states in the UI to display information dynamically.
+*   **Controlled Form Input:** Features real-time state tracking and verification for contact forms.
+*   **Live Character Counter:** Displays character length tracking dynamically below form inputs.
+*   **Custom 404 Catch-All:** Gracefully handles invalid URLs with a styled NotFound view.
+*   **Fidelity SVGs:** Embedded vector brand logo assets (e.g. PostgreSQL Slonik and multi-colored Figma).
 
 ---
 
@@ -16,14 +20,20 @@ Welcome to my personal student portfolio website. This single-page application i
 
 This application implements core React concepts:
 
-*   **Vite Development Environment:** Scaffolded using Vite's React template for fast builds and optimized assets.
-*   **Component-Based UI:** The page layout is composed of four modular components assembled in App.jsx. No JSX markup or rendering logic is duplicated.
-*   **Props System:** Data is managed centrally in App.jsx and passed to child components via props.
-    *   **Header Component:** Receives the name and title strings.
-    *   **Skills Component:** Receives the array of technical skills, including names, progress levels, and SVGs.
-    *   **Footer Component:** Receives the contact email and social links details.
-*   **Embedded Expressions (JSX):** Evaluates JavaScript arrays and variables dynamically inside the markup using curly brace syntax.
-*   **Map Method Rendering:** Skills and footer social link cards are mapped dynamically from data arrays to avoid manual replication.
+*   **Vite Tooling:** Configured with Hot Module Replacement (HMR) and production bundling.
+*   **Client-Side Routing Structure:**
+    *   **BrowserRouter:** Wraps the entire layout exactly once inside `main.jsx`.
+    *   **Routes & Route:** Configured inside `App.jsx` to render the correct page view:
+        *   `/` -> `Home.jsx` (Hero details and Bio)
+        *   `/projects` -> `Projects.jsx` (Skills and Technologies)
+        *   `/contact` -> `Contact.jsx` (Form and Footer socials)
+        *   `*` -> `NotFound.jsx` (Catch-all 404 handler)
+    *   **Link Components:** Used inside the `NavBar` to link pages seamlessly without reloading.
+*   **State Management (useState & useEffect):**
+    *   `theme` / `setTheme`: Toggles dark/light stylesheets by adding or removing the `.dark-theme` / `.light-theme` class on the root `document.documentElement` element.
+    *   `showTip` / `setShowTip`: Collapses or expands the educational advice box.
+    *   `message` / `setMessage` & `userName` / `setUserName`: State-driven controlled inputs for form fields.
+    *   Live `message.length` tracking: Renders character counts dynamically as the user types.
 
 ---
 
@@ -32,14 +42,20 @@ This application implements core React concepts:
 student-portfolio/
 ├── index.html
 ├── src/
-│   ├── main.jsx              ← React entry point
-│   ├── index.css             ← Global reset, theme variables, and keyframe animations
-│   ├── App.jsx               ← Root component orchestrating data flow
+│   ├── main.jsx              ← React entry point, BrowserRouter setup
+│   ├── index.css             ← Global reset, theme variable definitions, and animations
+│   ├── App.jsx               ← Root shell managing routing, navigation, and theme states
 │   └── components/
-│       ├── Header.jsx + .css  ← Landing section, nav header
-│       ├── About.jsx  + .css  ← Profile bio, quantitative statistics
-│       ├── Skills.jsx + .css  ← Tech skills grid with level bars
-│       └── Footer.jsx + .css  ← Email and social media directory
+│       ├── NavBar.jsx + .css  ← Navigation links with theme toggler
+│       ├── Home.jsx + .css    ← Hero wrapper, Academics collapsible box, and About Me section
+│       ├── Projects.jsx + .css← Project page wrapper loading the Skills grid
+│       ├── Contact.jsx + .css ← Contact Form, text inputs, live character counts, and Footer
+│       ├── NotFound.jsx + .css← Catch-all 404 component
+│       ├── Header.jsx + .css  ← Header details
+│       ├── About.jsx + .css   ← Biography statistics
+│       ├── Skills.jsx + .css  ← Technologies grid
+│       ├── Footer.jsx + .css  ← Contact info and social media directory
+│       └── PostgresLogo.jsx   ← Slonik SVG vector logo
 ```
 
 ---
@@ -56,7 +72,7 @@ Ensure you have Node.js installed on your system.
    cd student-portfolio
    ```
 
-2. Install dependencies:
+2. Install dependencies (including react-router-dom):
    ```bash
    npm install
    ```
@@ -71,4 +87,4 @@ To build the static application for production:
 ```bash
 npm run build
 ```
-This outputs optimized static assets in the `dist/` directory, ready to deploy.
+This outputs optimized static assets in the `dist/` directory.
