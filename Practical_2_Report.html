@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Practical 2 Report — Meet Nakarani</title>
+  <style>
+    body {
+      font-family: "Calibri", "Arial", sans-serif;
+      line-height: 1.5;
+      margin: 40px;
+      color: #333;
+    }
+    .header-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+    .header-table td {
+      border: none;
+      vertical-align: middle;
+    }
+    .student-id {
+      font-size: 14pt;
+      font-weight: bold;
+      text-align: left;
+      width: 25%;
+    }
+    .university-title {
+      font-size: 14pt;
+      font-weight: bold;
+      text-align: center;
+      line-height: 1.3;
+    }
+    .university-logo {
+      text-align: right;
+      width: 25%;
+    }
+    .university-logo img {
+      max-height: 80px;
+    }
+    .subtitle-block {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 11pt;
+      font-weight: bold;
+      border-bottom: 2px solid #333;
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+    }
+    .metadata-box {
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 25px;
+    }
+    .metadata-box p {
+      margin: 5px 0;
+      font-size: 11pt;
+    }
+    .metadata-label {
+      font-weight: bold;
+      color: #1a1a2e;
+    }
+    h2 {
+      font-size: 13pt;
+      color: #1a1a2e;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+      margin-top: 30px;
+    }
+    h3 {
+      font-size: 11pt;
+      color: #333;
+      margin-top: 20px;
+    }
+    ol, ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 10px;
+      font-size: 11pt;
+    }
+    .screenshot-container {
+      margin: 20px 0;
+      border: 1px solid #ccc;
+      padding: 10px;
+      background: #fafafa;
+      border-radius: 4px;
+    }
+    .screenshot-container p {
+      font-weight: bold;
+      margin-bottom: 8px;
+      font-size: 10.5pt;
+      color: #555;
+    }
+    .screenshot-image {
+      width: 100%;
+      display: block;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header Table -->
+  <table class="header-table">
+    <tr>
+      <td class="student-id">24IT053</td>
+      <td class="university-title">
+        CHAROTAR UNIVERSITY OF SCIENCE AND TECHNOLOGY<br>
+        FACULTY OF TECHNOLOGY AND ENGINEERING<br>
+        B. TECH (IT)
+      </td>
+      <td class="university-logo">
+        <img src="cspit_logo.png" alt="CSPIT Logo">
+      </td>
+    </tr>
+  </table>
+
+  <!-- Subtitle Block -->
+  <div class="subtitle-block">
+    Subject: Advanced Web Development Frameworks (ITUE301) | Semester: 5th<br>
+    Practical Statement: Practical 2: Client-Side Routing and State Management in React
+  </div>
+
+  <!-- Student & Repository Metadata -->
+  <div class="metadata-box">
+    <p><span class="metadata-label">Student Name:</span> Meet Nakarani</p>
+    <p><span class="metadata-label">Student ID:</span> 24IT053</p>
+    <p><span class="metadata-label">GitHub Repository:</span> <a href="https://github.com/MeetKumar6789/student-portfolio" target="_blank">https://github.com/MeetKumar6789/student-portfolio</a></p>
+  </div>
+
+  <!-- Problem Statement -->
+  <h2>Problem Statement</h2>
+  <ul>
+    <li>Extend the existing React portfolio application by adding client-side routing and state management.</li>
+    <li>Install <code>react-router-dom</code> (v6) and wrap the application with <code>&lt;BrowserRouter&gt;</code> exactly once in <code>main.jsx</code>.</li>
+    <li>Define exactly 3 routes inside <code>App.jsx</code> using <code>&lt;Routes&gt;</code> and <code>&lt;Route&gt;</code>:
+      <ul>
+        <li><code>"/"</code> &rarr; <code>Home.jsx</code> (rendering Header and About components)</li>
+        <li><code>"/projects"</code> &rarr; <code>Projects.jsx</code> (rendering Skills component)</li>
+        <li><code>"/contact"</code> &rarr; <code>Contact.jsx</code> (rendering Footer and controlled form components)</li>
+      </ul>
+    </li>
+    <li>Build a <code>NavBar.jsx</code> component using React Router's <code>&lt;Link&gt;</code> components for internal navigation without page reloads.</li>
+    <li>Implement at least two <code>useState</code> variables meaningfully:
+      <ul>
+        <li>One for UI toggling (collapsible academic tip visibility card).</li>
+        <li>One for managing a controlled text input form on the Contact page.</li>
+      </ul>
+    </li>
+    <li>Implement supplementary requirements:
+      <ul>
+        <li>Add a catch-all 404 "Not Found" route element (<code>NotFound.jsx</code>).</li>
+        <li>Implement a dark/light mode toggle in the NavBar applying a CSS class to the root element.</li>
+        <li>Display a live character counter below the controlled contact input.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <!-- Screenshots Section -->
+  <h2>Screenshots & Terminal Execution</h2>
+
+  <div class="screenshot-container">
+    <p>1. main.jsx (BrowserRouter configuration):</p>
+    <img src="1_main_jsx.png" alt="main.jsx Screenshot" class="screenshot-image">
+  </div>
+
+  <div class="screenshot-container">
+    <p>2. App.jsx (Routing switcher, page bindings, and Light/Dark theme toggles):</p>
+    <img src="2_App_jsx.png" alt="App.jsx Screenshot" class="screenshot-image">
+  </div>
+
+  <div class="screenshot-container">
+    <p>3. NavBar.jsx (Navigation bar with Route Link and Dark Mode buttons):</p>
+    <img src="3_NavBar_jsx.png" alt="NavBar.jsx Screenshot" class="screenshot-image">
+  </div>
+
+  <div class="screenshot-container">
+    <p>4. Home.jsx (Landing page featuring collapsible tips state toggle):</p>
+    <img src="4_Home_jsx.png" alt="Home.jsx Screenshot" class="screenshot-image">
+  </div>
+
+  <div class="screenshot-container">
+    <p>5. Projects.jsx (View container rendering technical skills):</p>
+    <img src="5_Projects_jsx.png" alt="Projects.jsx Screenshot" class="screenshot-image">
+  </div>
+
+  <div class="screenshot-container">
+    <p>6. Contact.jsx (Controlled input textarea and dynamic character counter):</p>
+    <img src="6_Contact_jsx.png" alt="Contact.jsx Screenshot" class="screenshot-image">
+  </div>
+
+  <div class="screenshot-container">
+    <p>7. NotFound.jsx (Catch-all 404 view page):</p>
+    <img src="7_NotFound_jsx.png" alt="NotFound.jsx Screenshot" class="screenshot-image">
+  </div>
+
+  <div class="screenshot-container">
+    <p>8. index.css (Global design tokens for light/dark theme classes):</p>
+    <img src="8_index_css.png" alt="index.css Screenshot" class="screenshot-image">
+  </div>
+
+</body>
+</html>

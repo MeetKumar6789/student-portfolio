@@ -1,26 +1,21 @@
+import { Link } from 'react-router-dom';
 import './Header.css';
 
 function Header({ name, title }) {
+  const handleScrollToAbout = (e) => {
+    e.preventDefault();
+    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <header className="header" id="header">
-      <div className="header-container">
-        <div className="header-logo">
-          <span className="logo-icon">◈</span>
-          <span className="logo-text">Portfolio</span>
-        </div>
-        <nav className="header-nav" id="main-nav">
-          <a href="#about" className="nav-link">About</a>
-          <a href="#skills" className="nav-link">Skills</a>
-          <a href="#footer" className="nav-link">Contact</a>
-        </nav>
-      </div>
       <div className="hero-section" id="hero">
         <div className="hero-badge">👋 Welcome to my portfolio</div>
         <h1 className="hero-name">{name}</h1>
         <p className="hero-title">{title}</p>
         <div className="hero-cta">
-          <a href="#about" className="btn btn-primary">Learn More</a>
-          <a href="#footer" className="btn btn-outline">Get in Touch</a>
+          <a href="#about" onClick={handleScrollToAbout} className="btn btn-primary">Learn More</a>
+          <Link to="/contact" className="btn btn-outline">Get in Touch</Link>
         </div>
         <div className="hero-glow"></div>
       </div>
