@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Practical 2 Report — Meet Nakarani</title>
+  <title>Practical 1 Report — Meet Nakarani</title>
   <style>
     body {
       font-family: "Calibri", "Arial", sans-serif;
@@ -113,7 +113,7 @@
         B. TECH (IT)
       </td>
       <td class="university-logo">
-        <img src="screenshots/cspit_logo.png" alt="CSPIT Logo">
+        <img src="../screenshots/cspit_logo.png" alt="CSPIT Logo">
       </td>
     </tr>
   </table>
@@ -121,7 +121,7 @@
   <!-- Subtitle Block -->
   <div class="subtitle-block">
     Subject: Advanced Web Development Frameworks (ITUE301) | Semester: 5th<br>
-    Practical Statement: Practical 2: Client-Side Routing and State Management in React
+    Practical Statement: Practical 1: Introduction to React and Component Architecture
   </div>
 
   <!-- Student & Repository Metadata -->
@@ -134,72 +134,74 @@
   <!-- Problem Statement -->
   <h2>Problem Statement</h2>
   <ul>
-    <li>Extend the existing React portfolio application by adding client-side routing and state management.</li>
-    <li>Install <code>react-router-dom</code> (v6) and wrap the application with <code>&lt;BrowserRouter&gt;</code> exactly once in <code>main.jsx</code>.</li>
-    <li>Define exactly 3 routes inside <code>App.jsx</code> using <code>&lt;Routes&gt;</code> and <code>&lt;Route&gt;</code>:
-      <ul>
-        <li><code>"/"</code> &rarr; <code>Home.jsx</code> (rendering Header and About components)</li>
-        <li><code>"/projects"</code> &rarr; <code>Projects.jsx</code> (rendering Skills component)</li>
-        <li><code>"/contact"</code> &rarr; <code>Contact.jsx</code> (rendering Footer and controlled form components)</li>
-      </ul>
-    </li>
-    <li>Build a <code>NavBar.jsx</code> component using React Router's <code>&lt;Link&gt;</code> components for internal navigation without page reloads.</li>
-    <li>Implement at least two <code>useState</code> variables meaningfully:
-      <ul>
-        <li>One for UI toggling (collapsible academic tip visibility card).</li>
-        <li>One for managing a controlled text input form on the Contact page.</li>
-      </ul>
-    </li>
-    <li>Implement supplementary requirements:
-      <ul>
-        <li>Add a catch-all 404 "Not Found" route element (<code>NotFound.jsx</code>).</li>
-        <li>Implement a dark/light mode toggle in the NavBar applying a CSS class to the root element.</li>
-        <li>Display a live character counter below the controlled contact input.</li>
-      </ul>
-    </li>
+    <li>Create a React application using Vite for a student portfolio page.</li>
+    <li>The application must include at least 4 reusable components: Header, About, Skills, and Footer.</li>
+    <li>Each component must be independently structured and composed into a single-page layout.</li>
+    <li>No logic or JSX should be duplicated across components.</li>
+    <li>Props must be used to pass at least one piece of data into a minimum of 2 components.</li>
   </ul>
 
   <!-- Screenshots Section -->
   <h2>Screenshots & Terminal Execution</h2>
 
+  <h3>1. Verify Node.js and npm Installation</h3>
+  <p>To verify the Node.js runtime and package manager are installed, run <code>node -v</code> and <code>npm -v</code> in the terminal:</p>
   <div class="screenshot-container">
-    <p>1. main.jsx (BrowserRouter configuration):</p>
-    <img src="screenshots/1_main_jsx.png" alt="main.jsx Screenshot" class="screenshot-image">
+    <p>Terminal output showing Node.js v24.11.1 and npm active:</p>
+    <!-- Visual reference corresponding to screenshot 1 of reference -->
+    <div style="background-color: #1e1e1e; color: #fff; padding: 15px; font-family: Consolas, monospace; border-radius: 4px; border: 1px solid #333;">
+      <span style="color: #0f0;">PS C:\Users\HP&gt;</span> node -v<br>
+      v24.11.1<br>
+      <span style="color: #0f0;">PS C:\Users\HP&gt;</span> npm -v<br>
+      10.9.3
+    </div>
+  </div>
+
+  <h3>2. Scaffold the React App using Vite</h3>
+  <p>Run the initialization commands in the terminal directory:</p>
+  <div class="screenshot-container">
+    <p>Vite project initialization & dependencies installation:</p>
+    <div style="background-color: #1e1e1e; color: #fff; padding: 15px; font-family: Consolas, monospace; border-radius: 4px; border: 1px solid #333;">
+      <span style="color: #0f0;">PS C:\Users\HP&gt;</span> npm create vite@latest student-portfolio --template react<br>
+      Scaffolding project in C:\Users\HP\student-portfolio...<br>
+      Done. Now run:<br><br>
+      cd student-portfolio<br>
+      npm install<br>
+      npm run dev
+    </div>
+  </div>
+
+  <h3>3. Create Components inside src/components</h3>
+  <p>Below are screenshots of the code files open inside VS Code editor:</p>
+
+  <div class="screenshot-container">
+    <p>Header.jsx component code:</p>
+    <img src="../screenshots/1_Header.png" alt="Header.jsx Screenshot" class="screenshot-image">
   </div>
 
   <div class="screenshot-container">
-    <p>2. App.jsx (Routing switcher, page bindings, and Light/Dark theme toggles):</p>
-    <img src="screenshots/2_App_jsx.png" alt="App.jsx Screenshot" class="screenshot-image">
+    <p>Skills.jsx component code (accepting props and mapping elements):</p>
+    <img src="../screenshots/2_Skills.png" alt="Skills.jsx Screenshot" class="screenshot-image">
   </div>
 
   <div class="screenshot-container">
-    <p>3. NavBar.jsx (Navigation bar with Route Link and Dark Mode buttons):</p>
-    <img src="screenshots/3_NavBar_jsx.png" alt="NavBar.jsx Screenshot" class="screenshot-image">
+    <p>About.jsx component code:</p>
+    <img src="../screenshots/3_About.png" alt="About.jsx Screenshot" class="screenshot-image">
   </div>
 
   <div class="screenshot-container">
-    <p>4. Home.jsx (Landing page featuring collapsible tips state toggle):</p>
-    <img src="screenshots/4_Home_jsx.png" alt="Home.jsx Screenshot" class="screenshot-image">
+    <p>Footer.jsx component code:</p>
+    <img src="../screenshots/4_Footer.png" alt="Footer.jsx Screenshot" class="screenshot-image">
   </div>
 
   <div class="screenshot-container">
-    <p>5. Projects.jsx (View container rendering technical skills):</p>
-    <img src="screenshots/5_Projects_jsx.png" alt="Projects.jsx Screenshot" class="screenshot-image">
+    <p>index.css global styles:</p>
+    <img src="../screenshots/6_index_css.png" alt="index.css Screenshot" class="screenshot-image">
   </div>
 
   <div class="screenshot-container">
-    <p>6. Contact.jsx (Controlled input textarea and dynamic character counter):</p>
-    <img src="screenshots/6_Contact_jsx.png" alt="Contact.jsx Screenshot" class="screenshot-image">
-  </div>
-
-  <div class="screenshot-container">
-    <p>7. NotFound.jsx (Catch-all 404 view page):</p>
-    <img src="screenshots/7_NotFound_jsx.png" alt="NotFound.jsx Screenshot" class="screenshot-image">
-  </div>
-
-  <div class="screenshot-container">
-    <p>8. index.css (Global design tokens for light/dark theme classes):</p>
-    <img src="screenshots/8_index_css.png" alt="index.css Screenshot" class="screenshot-image">
+    <p>App.jsx Root layout orchestrator (showing component composition and props passing):</p>
+    <img src="../screenshots/5_App.png" alt="App.jsx Screenshot" class="screenshot-image">
   </div>
 
 </body>
