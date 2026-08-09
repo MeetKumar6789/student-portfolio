@@ -12,6 +12,7 @@ Welcome to my personal student portfolio website. This project has been extended
 *   **Controlled Form Input:** Features real-time state tracking and verification for contact forms.
 *   **Live Character Counter:** Displays character length tracking dynamically below form inputs.
 *   **Custom 404 Catch-All:** Gracefully handles invalid URLs with a styled NotFound view.
+*   **GitHub API Integration:** Fetches public repository metadata from the unauthenticated GitHub REST API and renders repository cards with search, loading, retry, and error handling.
 *   **Fidelity SVGs:** Embedded vector brand logo assets (e.g. PostgreSQL Slonik and multi-colored Figma).
 
 ---
@@ -77,7 +78,13 @@ Ensure you have Node.js installed on your system.
    npm install
    ```
 
-3. Run the development server:
+3. Update the GitHub username used for the public API call in `src/components/Projects.jsx` if you want to show a different profile:
+   ```js
+   const GITHUB_USERNAME = 'MeetKumar6789';
+   ```
+   The app uses the public, unauthenticated GitHub REST API (`https://api.github.com/users/<username>/repos`), so no API key or backend is required.
+
+4. Run the development server:
    ```bash
    npm run dev
    ```

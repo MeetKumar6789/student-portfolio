@@ -1,3 +1,141 @@
 .projects-page {
   /* margin-top is handled globally by .main-content */
 }
+
+.github-projects {
+  max-width: 1100px;
+  margin: 2rem auto 4rem;
+  padding: 1.5rem 1.25rem 0;
+}
+
+.projects-spinner,
+.projects-error,
+.no-repos {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(122, 96, 255, 0.2);
+  border-radius: 16px;
+  padding: 1.5rem;
+  color: var(--text-color);
+  font-size: 1rem;
+  margin: 1rem 0;
+}
+
+.projects-spinner {
+  display: inline-block;
+  min-width: 240px;
+}
+
+.projects-error {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.projects-error p {
+  margin: 0;
+}
+
+.retry-button {
+  align-self: flex-start;
+  border: none;
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg, #7a60ff, #4ecdc4);
+  color: #fff;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.retry-button:hover {
+  transform: translateY(-1px);
+  opacity: 0.96;
+}
+
+.repo-search-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0 1.25rem;
+}
+
+.repo-search-box label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.repo-search-box input {
+  width: 100%;
+  max-width: 420px;
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(122, 96, 255, 0.25);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-color);
+  font: inherit;
+}
+
+.repo-search-box input:focus {
+  outline: 2px solid rgba(122, 96, 255, 0.35);
+  outline-offset: 2px;
+}
+
+.repo-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.repo-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1rem 1.1rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(122, 96, 255, 0.18);
+  color: var(--text-color);
+  text-decoration: none;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.repo-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(122, 96, 255, 0.4);
+}
+
+.repo-topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.repo-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.repo-stars {
+  color: #f4d35e;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.repo-link {
+  color: #8fc6ff;
+  word-break: break-word;
+}
+
+@media (max-width: 640px) {
+  .github-projects {
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+  }
+
+  .repo-topline {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
