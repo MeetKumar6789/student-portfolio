@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Skills from './Skills';
 import './Projects.css';
 
-const GITHUB_USERNAME = 'MeetKumar6789';
+const GITHUB_USERNAME = 'definitely-not-a-real-github-user-123456';
 
 function Spinner() {
   return (

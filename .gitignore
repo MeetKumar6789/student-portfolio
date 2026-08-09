@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 *.docx
 reports/*.docx
+
+.agent.md
+screenshots/
