@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const Task = require("./models/Task");
@@ -7,6 +8,9 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// Enable CORS for cross-origin frontend requests
+app.use(cors());
 
 // Global request logging middleware
 app.use((req, res, next) => {
