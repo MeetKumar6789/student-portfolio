@@ -1,27 +1,33 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const Task = require("./models/Task");
+const User = require("./models/User");
+const { authMiddleware } = require("./middleware/auth");
+const {
+  validateRegisterInput,
+  validateLoginInput,
+  validateTaskPayload,
+} = require("./utils/auth");
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const JWT_SECRET = process.env.JWT_SECRET || "dev-secret-change-me";
 
-// Enable CORS for cross-origin frontend requests
 app.use(cors());
 
-// Global request logging middleware
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url} - ${new Date().toISOString()}`);
   next();
 });
 
-// Parse incoming JSON bodies
 app.use(express.json());
 
-// Content-Type validation middleware for POST and PUT requests
 app.use((req, res, next) => {
   if (req.method === "POST" || req.method === "PUT") {
     const contentType = req.headers["content-type"];
@@ -37,7 +43,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Handle malformed JSON payloads cleanly
 app.use((err, req, res, next) => {
   if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
     return res.status(400).json({
@@ -49,7 +54,6 @@ app.use((err, req, res, next) => {
   next(err);
 });
 
-// Task ID validation middleware for routes containing :id
 function validateTaskId(req, res, next) {
   const taskId = req.params.id;
 
@@ -71,12 +75,97 @@ function sendError(res, statusCode, message) {
   });
 }
 
-// GET /tasks
+app.post("/register", async (req, res) => {
+  const validation = validateRegisterInput(req.body);
+
+  if (!validation.isValid) {
+    return sendError(res, 400, validation.message);
+  }
+
+  try {
+    const existingUser = await User.findOne({ email: validation.email });
+
+    if (existingUser) {
+      return sendError(res, 409, "User already exists");
+    }
+
+    const hashedPassword = await bcrypt.hash(validation.password, 10);
+    const user = await User.create({
+      email: validation.email,
+      password: hashedPassword,
+    });
+
+    return res.status(201).json({
+      success: true,
+      data: {
+        id: user._id,
+        email: user.email,
+        message: "User registered successfully",
+      },
+    });
+  } catch (error) {
+    if (error.name === "ValidationError") {
+      return sendError(res, 400, error.message);
+    }
+
+    return sendError(res, 500, "Unable to register user");
+  }
+});
+
+app.post("/login", async (req, res) => {
+  const validation = validateLoginInput(req.body);
+
+  if (!validation.isValid) {
+    return sendError(res, 400, validation.message);
+  }
+
+  try {
+    const user = await User.findOne({ email: validation.email });
+
+    if (!user) {
+      return sendError(res, 401, "Invalid email or password");
+    }
+
+    const isMatch = await bcrypt.compare(validation.password, user.password);
+
+    if (!isMatch) {
+      return sendError(res, 401, "Invalid email or password");
+    }
+
+    const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    return res.status(200).json({
+      success: true,
+      token,
+      data: {
+        user: {
+          id: user._id,
+          email: user.email,
+        },
+        expiresIn: "1h",
+      },
+    });
+  } catch (error) {
+    return sendError(res, 500, "Unable to log in");
+  }
+});
+
+app.get("/me", authMiddleware, async (req, res) => {
+  return res.status(200).json({
+    success: true,
+    data: req.user,
+  });
+});
+
+app.use("/tasks", authMiddleware);
+
 app.get("/tasks", async (req, res) => {
   try {
     const tasks = await Task.find().sort({ createdAt: -1 });
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: tasks,
     });
@@ -85,7 +174,6 @@ app.get("/tasks", async (req, res) => {
   }
 });
 
-// GET /tasks/:id
 app.get("/tasks/:id", validateTaskId, async (req, res) => {
   try {
     const task = await Task.findById(req.taskId);
@@ -94,7 +182,7 @@ app.get("/tasks/:id", validateTaskId, async (req, res) => {
       return sendError(res, 404, "Task not found");
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: task,
     });
@@ -103,27 +191,22 @@ app.get("/tasks/:id", validateTaskId, async (req, res) => {
   }
 });
 
-// POST /tasks
 app.post("/tasks", async (req, res) => {
-  const { title, description, completed, priority } = req.body;
+  const validation = validateTaskPayload(req.body);
 
-  if (!title || typeof title !== "string" || title.trim() === "") {
-    return sendError(res, 400, "Title is required");
-  }
-
-  if (!priority || typeof priority !== "string") {
-    return sendError(res, 400, "Priority is required");
+  if (!validation.isValid) {
+    return sendError(res, 400, validation.message);
   }
 
   try {
     const newTask = await Task.create({
-      title: title.trim(),
-      description: description || "",
-      completed: Boolean(completed),
-      priority: priority.trim().toLowerCase(),
+      title: validation.title,
+      description: validation.description,
+      completed: Boolean(req.body.completed),
+      priority: validation.priority,
     });
 
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       data: newTask,
     });
@@ -136,7 +219,6 @@ app.post("/tasks", async (req, res) => {
   }
 });
 
-// PUT /tasks/:id
 app.put("/tasks/:id", validateTaskId, async (req, res) => {
   try {
     const task = await Task.findById(req.taskId);
@@ -147,22 +229,31 @@ app.put("/tasks/:id", validateTaskId, async (req, res) => {
 
     const { title, description, completed, priority } = req.body;
 
-    if (title !== undefined && (typeof title !== "string" || title.trim() === "")) {
-      return sendError(res, 400, "Title cannot be empty");
+    if (title !== undefined) {
+      if (typeof title !== "string" || title.trim() === "") {
+        return sendError(res, 400, "Title cannot be empty");
+      }
+      task.title = title.trim();
     }
 
-    if (priority !== undefined && typeof priority !== "string") {
-      return sendError(res, 400, "Priority must be a string");
+    if (description !== undefined) {
+      task.description = description;
     }
 
-    task.title = title !== undefined ? title.trim() : task.title;
-    task.description = description !== undefined ? description : task.description;
-    task.completed = completed !== undefined ? Boolean(completed) : task.completed;
-    task.priority = priority !== undefined ? priority.trim().toLowerCase() : task.priority;
+    if (completed !== undefined) {
+      task.completed = Boolean(completed);
+    }
+
+    if (priority !== undefined) {
+      if (typeof priority !== "string" || !["low", "medium", "high"].includes(priority.trim().toLowerCase())) {
+        return sendError(res, 400, "Priority must be one of: low, medium, high");
+      }
+      task.priority = priority.trim().toLowerCase();
+    }
 
     const updatedTask = await task.save();
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: updatedTask,
     });
@@ -175,7 +266,6 @@ app.put("/tasks/:id", validateTaskId, async (req, res) => {
   }
 });
 
-// DELETE /tasks/:id
 app.delete("/tasks/:id", validateTaskId, async (req, res) => {
   try {
     const deletedTask = await Task.findByIdAndDelete(req.taskId);
@@ -184,7 +274,7 @@ app.delete("/tasks/:id", validateTaskId, async (req, res) => {
       return sendError(res, 404, "Task not found");
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: {
         message: "Task deleted successfully",
@@ -196,24 +286,21 @@ app.delete("/tasks/:id", validateTaskId, async (req, res) => {
   }
 });
 
-// Error demonstration route
 app.get("/test-error", (req, res, next) => {
   next(new Error("Simulated server error for testing"));
 });
 
-// 404 handler for undefined routes
 app.use((req, res) => {
-  res.status(404).json({
+  return res.status(404).json({
     success: false,
     error: "Route not found",
   });
 });
 
-// Global error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
 
-  res.status(500).json({
+  return res.status(500).json({
     success: false,
     error: "Something went wrong",
   });

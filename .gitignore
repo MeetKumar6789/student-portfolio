@@ -24,6 +24,10 @@ dist-ssr
 *.sw?
 *.docx
 reports/*.docx
+.env
+.env.*
+**/.env
+**/.env.*
 
 .agent.md
 screenshots/
