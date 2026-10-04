@@ -1,12 +1,13 @@
-import { useState, useEffect } from 'react';
+import { lazy, Suspense, useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import NavBar from './components/NavBar';
-import Home from './components/Home';
-import Projects from './components/Projects';
-import Contact from './components/Contact';
-import NotFound from './components/NotFound';
 import PostgresLogo from './components/PostgresLogo';
-import Login from './components/Login';
+
+const Home = lazy(() => import('./components/Home'));
+const Projects = lazy(() => import('./components/Projects'));
+const Contact = lazy(() => import('./components/Contact'));
+const NotFound = lazy(() => import('./components/NotFound'));
+const Login = lazy(() => import('./components/Login'));
 
 /* ─── Data passed as props to components ─── */
 const studentName = "Meet Nakarani";
@@ -195,25 +196,32 @@ function App() {
       <NavBar theme={theme} toggleTheme={toggleTheme} />
       
       <main className="main-content">
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route 
-            path="/" 
-            element={<Home name={studentName} title={studentTitle} />} 
-          />
-          <Route 
-            path="/projects" 
-            element={<Projects skills={skillsData} />} 
-          />
-          <Route 
-            path="/contact" 
-            element={<Contact email={contactEmail} socialLinks={socialLinksData} />} 
-          />
-          <Route 
-            path="*" 
-            element={<NotFound />} 
-          />
-        </Routes>
+        <Suspense fallback={(
+          <div className="route-loading" role="status" aria-live="polite">
+            <span className="route-loading-indicator" aria-hidden="true" />
+            <span>Loading page</span>
+          </div>
+        )}>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/"
+              element={<Home name={studentName} title={studentTitle} />}
+            />
+            <Route
+              path="/projects"
+              element={<Projects skills={skillsData} />}
+            />
+            <Route
+              path="/contact"
+              element={<Contact email={contactEmail} socialLinks={socialLinksData} />}
+            />
+            <Route
+              path="*"
+              element={<NotFound />}
+            />
+          </Routes>
+        </Suspense>
       </main>
     </div>
   );

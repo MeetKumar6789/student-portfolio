@@ -95,3 +95,7 @@ To build the static application for production:
 npm run build
 ```
 This outputs optimized static assets in the `dist/` directory.
+
+## Practical 8: Route-Based Lazy Loading
+
+Home, Projects, Contact, Login, and NotFound are loaded with `React.lazy()` and rendered under a route-scoped `Suspense` fallback. The production build's before/after bundle measurements and the steps for checking route requests in DevTools are documented in [reports/practical8-performance.md](reports/practical8-performance.md).
