@@ -1,8 +1,15 @@
-# Practical 8: Performance Optimization and Lazy Loading
+# Optimization Phase: Performance and Lazy Loading
 
 ## Implementation
 
-The Home, Projects, Contact, Login, and NotFound route components are imported with `React.lazy()` in `src/App.jsx`. A route-scoped `Suspense` boundary displays an accessible loading indicator while a route chunk is fetched. Vite emits separate JavaScript and CSS assets for these routes.
+The Home, Projects, Contact, Login, and NotFound route components are imported with `React.lazy()` in `src/App.jsx`. Vite uses these dynamic imports to emit separate JavaScript and CSS assets for each route. A route-scoped `Suspense` boundary displays an accessible loading indicator while a route chunk is fetched.
+
+## Techniques and Tools
+
+- React `lazy()` and dynamic `import()` for route-based code splitting.
+- React `Suspense` with an accessible loading fallback.
+- Vite production builds (`npm run build`) to inspect and compare initial and route chunk sizes.
+- Browser DevTools Network panel, cache controls, and Slow 3G throttling to inspect when route chunks are requested and observe the fallback.
 
 ## Production Build Comparison
 

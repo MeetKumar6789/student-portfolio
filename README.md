@@ -96,6 +96,8 @@ npm run build
 ```
 This outputs optimized static assets in the `dist/` directory.
 
-## Practical 8: Route-Based Lazy Loading
+## Optimization Phase: Route-Based Code Splitting
 
-Home, Projects, Contact, Login, and NotFound are loaded with `React.lazy()` and rendered under a route-scoped `Suspense` fallback. The production build's before/after bundle measurements and the steps for checking route requests in DevTools are documented in [reports/practical8-performance.md](reports/practical8-performance.md).
+This phase uses `React.lazy()` with route-level `Suspense` to load Home, Projects, Contact, Login, and NotFound only when their routes are visited. Vite dynamic imports split these pages into separate JavaScript and CSS chunks, and an accessible loading indicator is shown while a chunk loads.
+
+Optimization techniques and tools used: React route-based lazy loading and code splitting, a `Suspense` fallback, Vite production builds (`npm run build`) to compare initial bundle sizes, and browser DevTools Network throttling to inspect route-chunk requests and loading behavior. The measured bundle comparison and verification steps are documented in [reports/optimization-phase-performance.md](reports/optimization-phase-performance.md).
