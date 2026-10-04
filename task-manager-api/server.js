@@ -7,17 +7,23 @@ const dotenv = require("dotenv");
 const Task = require("./models/Task");
 const User = require("./models/User");
 const { authMiddleware } = require("./middleware/auth");
+const { validateBody } = require("./middleware/validate");
 const {
   validateRegisterInput,
   validateLoginInput,
   validateTaskPayload,
+  validateTaskUpdatePayload,
 } = require("./utils/auth");
 
 dotenv.config();
 
+if (!process.env.JWT_SECRET) {
+  throw new Error("JWT_SECRET must be set in task-manager-api/.env");
+}
+
 const app = express();
 const PORT = process.env.PORT || 5000;
-const JWT_SECRET = process.env.JWT_SECRET || "dev-secret-change-me";
+const JWT_SECRET = process.env.JWT_SECRET;
 
 app.use(cors());
 
@@ -75,23 +81,18 @@ function sendError(res, statusCode, message) {
   });
 }
 
-app.post("/register", async (req, res) => {
-  const validation = validateRegisterInput(req.body);
-
-  if (!validation.isValid) {
-    return sendError(res, 400, validation.message);
-  }
-
+app.post("/register", validateBody(validateRegisterInput), async (req, res) => {
+  const { email, password } = req.validatedBody;
   try {
-    const existingUser = await User.findOne({ email: validation.email });
+    const existingUser = await User.findOne({ email });
 
     if (existingUser) {
       return sendError(res, 409, "User already exists");
     }
 
-    const hashedPassword = await bcrypt.hash(validation.password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
-      email: validation.email,
+      email,
       password: hashedPassword,
     });
 
@@ -104,6 +105,10 @@ app.post("/register", async (req, res) => {
       },
     });
   } catch (error) {
+    if (error.code === 11000) {
+      return sendError(res, 409, "User already exists");
+    }
+
     if (error.name === "ValidationError") {
       return sendError(res, 400, error.message);
     }
@@ -112,21 +117,16 @@ app.post("/register", async (req, res) => {
   }
 });
 
-app.post("/login", async (req, res) => {
-  const validation = validateLoginInput(req.body);
-
-  if (!validation.isValid) {
-    return sendError(res, 400, validation.message);
-  }
-
+app.post("/login", validateBody(validateLoginInput), async (req, res) => {
+  const { email, password } = req.validatedBody;
   try {
-    const user = await User.findOne({ email: validation.email });
+    const user = await User.findOne({ email });
 
     if (!user) {
       return sendError(res, 401, "Invalid email or password");
     }
 
-    const isMatch = await bcrypt.compare(validation.password, user.password);
+    const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
       return sendError(res, 401, "Invalid email or password");
@@ -191,19 +191,14 @@ app.get("/tasks/:id", validateTaskId, async (req, res) => {
   }
 });
 
-app.post("/tasks", async (req, res) => {
-  const validation = validateTaskPayload(req.body);
-
-  if (!validation.isValid) {
-    return sendError(res, 400, validation.message);
-  }
-
+app.post("/tasks", validateBody(validateTaskPayload), async (req, res) => {
+  const { title, description, completed, priority } = req.validatedBody;
   try {
     const newTask = await Task.create({
-      title: validation.title,
-      description: validation.description,
-      completed: Boolean(req.body.completed),
-      priority: validation.priority,
+      title,
+      description,
+      completed,
+      priority,
     });
 
     return res.status(201).json({
@@ -219,7 +214,7 @@ app.post("/tasks", async (req, res) => {
   }
 });
 
-app.put("/tasks/:id", validateTaskId, async (req, res) => {
+app.put("/tasks/:id", validateTaskId, validateBody(validateTaskUpdatePayload), async (req, res) => {
   try {
     const task = await Task.findById(req.taskId);
 
@@ -227,29 +222,7 @@ app.put("/tasks/:id", validateTaskId, async (req, res) => {
       return sendError(res, 404, "Task not found");
     }
 
-    const { title, description, completed, priority } = req.body;
-
-    if (title !== undefined) {
-      if (typeof title !== "string" || title.trim() === "") {
-        return sendError(res, 400, "Title cannot be empty");
-      }
-      task.title = title.trim();
-    }
-
-    if (description !== undefined) {
-      task.description = description;
-    }
-
-    if (completed !== undefined) {
-      task.completed = Boolean(completed);
-    }
-
-    if (priority !== undefined) {
-      if (typeof priority !== "string" || !["low", "medium", "high"].includes(priority.trim().toLowerCase())) {
-        return sendError(res, 400, "Priority must be one of: low, medium, high");
-      }
-      task.priority = priority.trim().toLowerCase();
-    }
+    Object.assign(task, req.validatedBody);
 
     const updatedTask = await task.save();
 

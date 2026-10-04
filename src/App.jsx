@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import NotFound from './components/NotFound';
 import PostgresLogo from './components/PostgresLogo';
+import Login from './components/Login';
 
 /* ─── Data passed as props to components ─── */
 const studentName = "Meet Nakarani";
@@ -170,10 +171,20 @@ const socialLinksData = [
 
 function App() {
   const [theme, setTheme] = useState('light');
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.documentElement.className = `${theme}-theme`;
   }, [theme]);
+
+  useEffect(() => {
+    const handleUnauthorized = () => {
+      navigate('/login', { replace: true, state: { expired: true } });
+    };
+
+    window.addEventListener('task-manager:unauthorized', handleUnauthorized);
+    return () => window.removeEventListener('task-manager:unauthorized', handleUnauthorized);
+  }, [navigate]);
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
@@ -185,6 +196,7 @@ function App() {
       
       <main className="main-content">
         <Routes>
+          <Route path="/login" element={<Login />} />
           <Route 
             path="/" 
             element={<Home name={studentName} title={studentTitle} />} 

@@ -1,7 +1,18 @@
-# Task Manager API - Practical 5
+# Task Manager API - Practical 7
 
 ## Objective
-This project extends the previous Task Management REST API by integrating MongoDB with Mongoose. Instead of keeping tasks in an in-memory array, the application stores and retrieves tasks from a MongoDB database using a schema-driven model.
+This project extends the full-stack Task Management application with JWT authentication and request-validation middleware. MongoDB stores users and tasks through Mongoose.
+
+## Practical 7 Authentication
+
+- `POST /register` validates the email and password, hashes the password with bcrypt, and stores the user.
+- `POST /login` verifies the password and returns a JWT that expires after one hour.
+- `GET /me` returns the authenticated user's ID and email.
+- Every `/tasks` route requires `Authorization: Bearer <token>`.
+- Request validation runs before task database queries and rejects malformed bodies with HTTP 400.
+- The React task page includes registration, login, sign-out, and redirects to login when an authenticated request returns HTTP 401.
+
+The JWT secret is required from `task-manager-api/.env`; there is no source-code fallback. Copy `.env.example` to `.env` and replace the placeholder with a long random secret. Keep `.env` untracked.
 
 ## Technologies Used
 - Node.js
@@ -41,6 +52,8 @@ npm install
 copy .env.example .env
 ```
 
+Set `JWT_SECRET` in `.env` to a long random value before starting the API.
+
 4. Make sure MongoDB is running locally. The default connection string is:
 ```bash
 mongodb://127.0.0.1:27017/task-manager-db
@@ -72,34 +85,73 @@ The Task model is defined in `models/Task.js` and includes:
 
 ## API Endpoints
 
+### POST /register
+Creates a user. The request body requires `email` and a password of at least six characters.
+
+### POST /login
+Accepts `email` and `password`; returns a signed JWT on successful authentication.
+
+### GET /me
+Returns the currently authenticated user's ID and email.
+
 ### GET /tasks
-Returns all tasks from MongoDB.
+Returns all tasks from MongoDB. Requires a valid bearer token.
 
 ### GET /tasks/:id
-Returns a single task by MongoDB ObjectId.
+Returns a single task by MongoDB ObjectId. Requires a valid bearer token.
 
 ### POST /tasks
-Creates a new task.
+Creates a new task. Requires a valid bearer token and non-empty `title` and valid `priority`.
 
 ### PUT /tasks/:id
-Updates an existing task.
+Updates an existing task. Requires a valid bearer token and at least one valid task field.
 
 ### DELETE /tasks/:id
-Deletes a task.
+Deletes a task. Requires a valid bearer token.
 
 ### GET /test-error
 Deliberately triggers the global error handler.
 
 ## Example Requests
 
+### Register
+```http
+POST http://localhost:5000/register
+Content-Type: application/json
+
+{
+  "email": "student@example.com",
+  "password": "secret123"
+}
+```
+
+### Login
+```http
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "email": "student@example.com",
+  "password": "secret123"
+}
+```
+
+Copy the returned `token` and include it on protected requests:
+
+```http
+Authorization: Bearer <token>
+```
+
+### Get the current user
+```http
+GET http://localhost:5000/me
+Authorization: Bearer <token>
+```
+
 ### Get all tasks
 ```http
 GET http://localhost:5000/tasks
-```
-
-### Get task by ID
-```http
-GET http://localhost:5000/tasks/66d8f0d0b0d8230012345678
+Authorization: Bearer <token>
 ```
 
 ### Create a task

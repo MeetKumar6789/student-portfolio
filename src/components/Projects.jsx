@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Skills from './Skills';
 import api from '../api';
 import './Projects.css';
@@ -100,7 +101,9 @@ function ConfirmModal({ isOpen, title, message, onConfirm, onCancel, isProcessin
 }
 
 function Projects({ skills }) {
+  const navigate = useNavigate();
   const [tasks, setTasks] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [query, setQuery] = useState('');
@@ -146,8 +149,21 @@ function Projects({ skills }) {
   };
 
   useEffect(() => {
+    if (!api.getAuthToken()) {
+      navigate('/login', { replace: true });
+      return;
+    }
+
     loadTasks();
-  }, []);
+    api.getCurrentUser()
+      .then((res) => setCurrentUser(res.data))
+      .catch((err) => setError(err.message || 'Unable to verify your session.'));
+  }, [navigate]);
+
+  const handleLogout = () => {
+    api.clearAuthToken();
+    navigate('/login', { replace: true });
+  };
 
   // POST /tasks (Optimistic UI Update)
   const handleCreateTask = async (e) => {
@@ -286,6 +302,11 @@ function Projects({ skills }) {
           Full-Stack Task
           <span className="heading-accent"> Management</span>
         </h2>
+
+        <div className="task-session-bar">
+          <span>Signed in as <strong>{currentUser?.email || 'Loading account...'}</strong></span>
+          <button type="button" onClick={handleLogout}>Sign out</button>
+        </div>
 
         {/* Task Creation Form */}
         <form onSubmit={handleCreateTask} className="task-form-card">
