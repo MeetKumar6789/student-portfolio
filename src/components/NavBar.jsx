@@ -1,35 +1,69 @@
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './NavBar.css';
 
 function NavBar({ theme, toggleTheme }) {
   const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const closeMenu = () => setMenuOpen(false);
+  const isHome = location.pathname === '/';
+  const items = [
+    { label: 'Home', to: '/' },
+    { label: 'About', to: '/#about', section: 'about' },
+    { label: 'Skills', to: '/#skills', section: 'skills' },
+    { label: 'Projects', to: '/#projects', section: 'projects' },
+    { label: 'Process', to: '/#process', section: 'process' },
+    { label: 'Contact', to: '/contact' },
+    { label: 'Event Monitor', to: '/event-monitor' },
+    { label: 'Task Manager', to: '/projects' },
+  ];
 
   return (
-    <nav className="navbar" id="main-nav">
+    <nav className="navbar" id="main-nav" aria-label="Main navigation">
       <div className="navbar-container">
-        <Link to="/" className="navbar-logo">
+        <Link to="/" className="navbar-logo" onClick={closeMenu}>
           <span className="logo-icon">◈</span>
-          <span className="logo-text">Meet Nakarani</span>
+          <span className="logo-text">Meet Nakarani<span className="logo-period">.</span></span>
         </Link>
-        
-        <div className="navbar-menu">
-          <Link to="/" className={`navbar-link ${location.pathname === '/' ? 'active' : ''}`}>
-            Home
-          </Link>
-          <Link to="/projects" className={`navbar-link ${location.pathname === '/projects' ? 'active' : ''}`}>
-            Projects
-          </Link>
-          <Link to="/contact" className={`navbar-link ${location.pathname === '/contact' ? 'active' : ''}`}>
-            Contact
-          </Link>
-          <Link to="/event-monitor" className={`navbar-link ${location.pathname === '/event-monitor' ? 'active' : ''}`}>
-            Event Monitor
-          </Link>
-          
+
+        <button
+          type="button"
+          className="menu-toggle"
+          aria-expanded={menuOpen}
+          aria-controls="navbar-menu"
+          aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <span />
+          <span />
+        </button>
+
+        <div className={`navbar-menu ${menuOpen ? 'menu-open' : ''}`} id="navbar-menu">
+          {items.map((item) => {
+            const active = item.section
+              ? isHome && location.hash === `#${item.section}`
+              : item.to === '/'
+                ? isHome && !location.hash
+                : location.pathname === item.to;
+
+            return (
+              <Link
+                key={item.label}
+                to={item.to}
+                className={`navbar-link ${active ? 'active' : ''}`}
+                onClick={closeMenu}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+
           <button 
             className="theme-toggle-btn" 
             onClick={toggleTheme}
+            type="button"
             aria-label="Toggle dark/light theme"
+            title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
           >
             {theme === 'dark' ? (
               // Sun Icon

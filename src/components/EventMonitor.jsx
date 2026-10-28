@@ -1,4 +1,5 @@
 import { useEventMonitor } from '../hooks/useEventMonitor';
+import { useReveal } from '../hooks/useReveal';
 import './EventMonitor.css';
 
 function formatTime(timestamp) {
@@ -15,9 +16,16 @@ function formatTime(timestamp) {
 
 function EventMonitor() {
   const events = useEventMonitor(20);
+  const reveal = useReveal();
 
   return (
-    <section className="event-monitor-section" aria-live="polite">
+    <section
+      className="event-monitor-section"
+      aria-live="polite"
+      ref={reveal.ref}
+      data-reveal={reveal.isObserving ? 'ready' : undefined}
+      data-revealed={reveal.isVisible ? 'true' : 'false'}
+    >
       <div className="section-label">
         <span className="label-dot" />
         Event Monitor

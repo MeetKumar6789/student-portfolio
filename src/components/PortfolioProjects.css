@@ -1,0 +1,139 @@
+.portfolio-projects {
+  padding: clamp(5rem, 10vw, 9rem) 2rem;
+  background: var(--bg-primary);
+}
+
+.portfolio-projects-container {
+  width: min(100%, 1120px);
+  margin: 0 auto;
+}
+
+.portfolio-projects-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2.4rem;
+}
+
+.portfolio-projects-heading .section-heading {
+  margin: 0;
+}
+
+.portfolio-projects-heading > p {
+  max-width: 270px;
+  padding-bottom: 0.35rem;
+  color: var(--text-secondary);
+  font-size: 0.94rem;
+}
+
+.portfolio-project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.portfolio-project-card {
+  position: relative;
+  display: flex;
+  min-height: 285px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.35rem;
+  overflow: hidden;
+}
+
+.portfolio-project-number {
+  color: var(--text-muted);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+}
+
+.portfolio-project-language {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  max-width: 45%;
+  padding: 0.3rem 0.55rem;
+  font-size: 0.7rem;
+  overflow-wrap: anywhere;
+}
+
+.portfolio-project-card h3 {
+  width: 100%;
+  margin-top: auto;
+  font-family: var(--font-heading);
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.portfolio-project-card p {
+  display: -webkit-box;
+  width: 100%;
+  min-height: 3.2em;
+  margin-top: 0.8rem;
+  overflow: hidden;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.portfolio-project-link {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.portfolio-projects-state {
+  padding: 1.4rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+}
+
+.portfolio-projects-error button {
+  margin-top: 0.8rem;
+  border: 0;
+  background: none;
+  color: var(--green);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 760px) {
+  .portfolio-projects {
+    padding-right: 1.1rem;
+    padding-left: 1.1rem;
+  }
+
+  .portfolio-project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .portfolio-projects-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .portfolio-project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-project-card {
+    min-height: 240px;
+  }
+}

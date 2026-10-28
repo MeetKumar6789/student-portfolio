@@ -1,48 +1,43 @@
+import { useReveal } from '../hooks/useReveal';
 import './About.css';
 
 function About() {
+  const reveal = useReveal();
+
   return (
     <section className="about" id="about">
       <div className="about-container">
         <div className="section-label">
           <span className="label-dot"></span>
-          About Me
+          A little about me
         </div>
-        <h2 className="section-heading">
-          Passionate about building<br />
-          <span className="heading-accent">digital experiences</span>
-        </h2>
-
-        <div className="about-content">
+        <div
+          className="about-content"
+          ref={reveal.ref}
+          data-reveal={reveal.isObserving ? 'ready' : undefined}
+          data-revealed={reveal.isVisible ? 'true' : 'false'}
+        >
+          <div className="about-title-column">
+            <p className="about-index">01 / PROFILE</p>
+            <h2 className="section-heading">ABOUT<br /><span className="heading-accent">ME.</span></h2>
+            <div className="about-visual" aria-hidden="true">
+              <span className="about-visual-grid" />
+              <span className="about-visual-monogram">MN</span>
+              <span className="about-visual-caption">Curious by default.</span>
+            </div>
+          </div>
           <div className="about-text">
             <p>
-              I'm a Computer Science student with a deep passion for creating elegant,
-              user-friendly applications. Currently focused on full-stack web development,
-              I love turning complex problems into simple, beautiful designs.
+              I’m Meet Nakarani, a Computer Science student interested in how thoughtful design and reliable engineering can work together.
             </p>
             <p>
-              When I'm not coding, you'll find me exploring open-source projects,
-              participating in hackathons, or diving into the latest tech trends.
-              I believe in continuous learning and building things that make a difference.
+              My work and learning span full-stack web development, backend systems, databases, and data science. I enjoy turning a clear problem into a practical product, then improving it through testing and iteration.
             </p>
-          </div>
-
-          <div className="about-stats">
-            <div className="stat-card">
-              <span className="stat-number">3</span>
-              <span className="stat-label">Projects Built</span>
-            </div>
-            <div className="stat-card">
-              <span className="stat-number">3+</span>
-              <span className="stat-label">Hackathons</span>
-            </div>
-            <div className="stat-card">
-              <span className="stat-number">5+</span>
-              <span className="stat-label">Technologies</span>
-            </div>
-            <div className="stat-card">
-              <span className="stat-number">2+</span>
-              <span className="stat-label">Years Coding</span>
+            <div className="about-facts">
+              <span>Computer Science student</span>
+              <span>Full-stack development</span>
+              <span>Data science</span>
+              <span>Continuous learning</span>
             </div>
           </div>
         </div>

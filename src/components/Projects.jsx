@@ -5,6 +5,7 @@ import api from '../api';
 import { eventBus, EVENT_TYPES } from '../services/eventBus';
 import { fetchGitHubRepositories } from '../services/githubService';
 import './Projects.css';
+import './RepositoryCards.css';
 
 function Spinner() {
   return (
@@ -405,18 +406,18 @@ function Projects({ skills }) {
                 href={repo.html_url}
                 target="_blank"
                 rel="noreferrer"
-                className="repo-item"
+                className="repo-item repository-card"
               >
                 <div className="repo-topline">
-                  <span className="repo-name">{repo.name}</span>
+                  <span className="repo-name repository-title">{repo.name}</span>
                   <span className="repo-stars">★ {repo.stargazers_count}</span>
                 </div>
-                <p className="repo-description">{repo.description}</p>
+                <p className="repo-description repository-description">{repo.description}</p>
                 <div className="repo-meta">
-                  <span>{repo.language}</span>
+                  <span className="repository-language">{repo.language}</span>
                   <span>{new Date(repo.updated_at).toLocaleDateString()}</span>
                 </div>
-                <span className="repo-link">{repo.full_name}</span>
+                <span className="repo-link repository-link">{repo.full_name}</span>
               </a>
             ))}
           </div>

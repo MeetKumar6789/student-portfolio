@@ -2,14 +2,15 @@ import { useState } from 'react';
 import Footer from './Footer';
 import { eventBus, EVENT_TYPES } from '../services/eventBus';
 import { processContactSubmission, validateContactSubmission } from '../services/contactService';
+import { useReveal } from '../hooks/useReveal';
 import './Contact.css';
 
 function Contact({ email, socialLinks }) {
+  const reveal = useReveal();
   const [message, setMessage] = useState('');
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [simulateFailure, setSimulateFailure] = useState(false);
-  const [status, setStatus] = useState('idle');
   const [feedback, setFeedback] = useState({ type: 'info', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -29,7 +30,6 @@ function Contact({ email, socialLinks }) {
     const result = validateContactSubmission(payload);
 
     if (!result.valid) {
-      setStatus('error');
       setFeedback({ type: 'error', message: result.errors[0] });
       eventBus.emit(EVENT_TYPES.MESSAGE_PROCESSING_FAILED, {
         status: 'failed',
@@ -43,7 +43,6 @@ function Contact({ email, socialLinks }) {
     }
 
     setIsSubmitting(true);
-    setStatus('processing');
     setFeedback({ type: 'info', message: 'Submitting your message to the simulated async queue…' });
 
     eventBus.emit(EVENT_TYPES.CONTACT_FORM_SUBMITTED, {
@@ -65,7 +64,6 @@ function Contact({ email, socialLinks }) {
     try {
       await processContactSubmission(result.payload, { delay: 1800, shouldFail: simulateFailure });
 
-      setStatus('success');
       setFeedback({
         type: 'success',
         message: 'Your message was accepted by the simulated processing workflow. No real email was sent.',
@@ -84,7 +82,6 @@ function Contact({ email, socialLinks }) {
       setUserEmail('');
     } catch (error) {
       const errorMessage = error.message || 'We could not process your message right now.';
-      setStatus('error');
       setFeedback({ type: 'error', message: errorMessage });
 
       eventBus.emit(EVENT_TYPES.MESSAGE_PROCESSING_FAILED, {
@@ -103,15 +100,23 @@ function Contact({ email, socialLinks }) {
   return (
     <div className="contact-page">
       <section className="contact-section">
-        <div className="contact-container">
+        <div
+          className="contact-container"
+          ref={reveal.ref}
+          data-reveal={reveal.isObserving ? 'ready' : undefined}
+          data-revealed={reveal.isVisible ? 'true' : 'false'}
+        >
           <div className="section-label">
             <span className="label-dot"></span>
-            Contact Me
+            Contact / Say hello
           </div>
-          <h2 className="section-heading">
-            Let's start a<br />
-            <span className="heading-accent">conversation</span>
-          </h2>
+          <h2 className="contact-heading">LET'S TALK <span aria-hidden="true">:)</span></h2>
+
+          <div className="contact-intro-panel">
+            <span className="contact-panel-label">OPEN CHANNEL</span>
+            <p>Have a question, an idea, or just want to connect? Send a note and I’ll get back to you.</p>
+            <a href={`mailto:${email}`} className="contact-email-strip">{email}<span aria-hidden="true">↗</span></a>
+          </div>
 
           <div className="contact-layout">
             <form onSubmit={handleSubmit} className="contact-form">

@@ -8,8 +8,8 @@ function NotFound() {
         <h1 className="notfound-code">404</h1>
         <h2 className="notfound-title">Page Not Found</h2>
         <p className="notfound-text">
-          Oops! The page you are looking for does not exist, has been removed, 
-          or name changed.
+          Oops! The page you are looking for does not exist, has been removed,
+          or renamed.
         </p>
         <Link to="/" className="btn btn-primary notfound-btn">
           Back to Home
