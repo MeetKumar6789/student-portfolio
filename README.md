@@ -1,5 +1,7 @@
 # Student Portfolio & Task Management System
 
+[![CI Pipeline](https://github.com/MeetKumar6789/student-portfolio/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/MeetKumar6789/student-portfolio/actions/workflows/ci.yml)
+
 **Full-Stack Development, Asynchronous Processing, Caching & Docker**
 
 A full-stack student portfolio developed using React, Vite, Node.js, Express, and MongoDB. The project progressively integrates frontend development, REST API design, database operations, authentication, task management, caching, asynchronous event-driven processing, and containerization using Docker Compose.
@@ -21,6 +23,7 @@ A full-stack student portfolio developed using React, Vite, Node.js, Express, an
 11. [Caching Implementation](#11-caching-implementation)
 12. [Asynchronous Processing and Event-Driven Architecture](#12-asynchronous-processing-and-event-driven-architecture)
 13. [Testing and Verification](#13-testing-and-verification)
+    - [Practical 12 — CI/CD Pipeline with GitHub Actions](#practical-12--cicd-pipeline-with-github-actions)
 14. [Environment Configuration](#14-environment-configuration)
 15. [Expected Results](#15-expected-results)
 16. [Learning Outcomes](#16-learning-outcomes)
@@ -504,6 +507,45 @@ Use the following checklist when demonstrating the project.
 - [ ] The backend is accessible through port 5000.
 - [ ] Task data persists after containers are stopped and restarted.
 - [ ] The frontend production build succeeds.
+
+### Practical 12 — CI/CD Pipeline with GitHub Actions
+
+The [CI Pipeline workflow](.github/workflows/ci.yml) automatically checks the frontend and backend on every push to `master` and every pull request targeting `master`. It runs on `ubuntu-latest` with Node.js 22, installs each project’s dependencies from its own lockfile with `npm ci`, runs the existing root lint script and frontend production build, and runs the backend tests. Any failed install, lint, test, or build step marks its job as failed.
+
+The jobs do not need MongoDB or credentials. The task API tests exercise the real Express application and protected `GET /tasks` route; they stub the model lookups, so they verify both the HTTP 200 task response and the unauthenticated HTTP 401 response without contacting a database or changing authentication behavior.
+
+Run the checks locally from the repository root:
+
+```bash
+npm ci
+npm run lint
+npm run build
+```
+
+Run backend tests from `task-manager-api/`:
+
+```bash
+npm ci
+npm test
+```
+
+**Continuous Integration (CI)** automatically builds and tests code changes so failures are caught before integration. **Continuous Deployment (CD)** automatically delivers or deploys validated changes to an environment. This workflow implements CI only; it does not deploy the application.
+
+#### Demonstrating a failing test and its correction
+
+After the workflow has been published and a run on `master` has passed, create a short-lived branch and pull request targeting `master`. Change an expected value in `task-manager-api/tests/tasks.test.js` to a deliberately incorrect value, push that change, and confirm the pull-request workflow fails at **Run backend tests**. Open the failed job and test output to record the assertion’s expected and actual values. Restore the correct expectation, push the correction, and confirm the next workflow run succeeds. Do not leave the incorrect expectation in the project.
+
+Run evidence is pending: no GitHub Actions runs were triggered or verified as part of this local implementation. Replace these placeholders with links to the real runs after completing the demonstration:
+
+- Deliberately failed test run: **[add the actual failed run link]**
+- Corrected successful run: **[add the actual successful run link]**
+- Current workflow result: **pending GitHub Actions execution**
+
+To find the runs, open the repository’s **Actions** tab, select **CI Pipeline**, then open each run and inspect the **Backend tests** job. A missing test file or incorrect test path typically causes test discovery to fail before any assertion executes; an assertion failure means the test ran and its actual value differed from the expected value. In either case, inspect the first failing step and its log: installation errors point to dependencies or lockfiles, discovery errors to the script/path, assertion output to behavior or expectations, and frontend build errors to the build output.
+
+#### CI status badge
+
+The badge at the top of this README reports the latest workflow status for `master`. It will show a meaningful result after the workflow is pushed and GitHub Actions completes a run.
 
 ## 14. Environment Configuration
 
