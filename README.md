@@ -560,6 +560,4 @@ After completing the project, the student gains practical experience in:
 
 The Student Portfolio & Task Management System brings together frontend development, backend APIs, database operations, authentication, caching, asynchronous processing, event-driven architecture, and Docker deployment in one progressive project.
 
-Across Practicals 1–11, the application develops from a portfolio foundation into a more complete full-stack system. The final architecture demonstrates how React, Express, MongoDB, NodeCache, and Docker Compose can work together while keeping the frontend, backend, and database responsibilities separate.
-
 The project provides a practical foundation for understanding full-stack application development, performance optimization, event handling, and containerized deployment.
