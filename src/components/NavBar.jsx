@@ -22,6 +22,9 @@ function NavBar({ theme, toggleTheme }) {
           <Link to="/contact" className={`navbar-link ${location.pathname === '/contact' ? 'active' : ''}`}>
             Contact
           </Link>
+          <Link to="/event-monitor" className={`navbar-link ${location.pathname === '/event-monitor' ? 'active' : ''}`}>
+            Event Monitor
+          </Link>
           
           <button 
             className="theme-toggle-btn" 

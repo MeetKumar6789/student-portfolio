@@ -1,0 +1,51 @@
+services:
+  mongodb:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  backend:
+    build:
+      context: ./task-manager-api
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/taskdb
+      JWT_SECRET: ${JWT_SECRET:-docker-lab-only-change-me}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      args:
+        VITE_API_URL: http://localhost:5000
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongo-data:

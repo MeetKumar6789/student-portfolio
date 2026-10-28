@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Skills from './Skills';
 import api from '../api';
+import { eventBus, EVENT_TYPES } from '../services/eventBus';
+import { fetchGitHubRepositories } from '../services/githubService';
 import './Projects.css';
 
 function Spinner() {
@@ -107,6 +109,11 @@ function Projects({ skills }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [query, setQuery] = useState('');
+  const [githubRepos, setGithubRepos] = useState([]);
+  const [githubLoading, setGithubLoading] = useState(true);
+  const [githubError, setGithubError] = useState('');
+  const [repoQuery, setRepoQuery] = useState('');
+  const githubAbortControllerRef = useRef(null);
 
   // Form State
   const [newTitle, setNewTitle] = useState('');
@@ -133,6 +140,65 @@ function Projects({ skills }) {
       return () => clearTimeout(timer);
     }
   }, [toast]);
+
+  const loadGitHubRepositories = useCallback(async () => {
+    if (githubAbortControllerRef.current) {
+      githubAbortControllerRef.current.abort();
+    }
+
+    const controller = new AbortController();
+    githubAbortControllerRef.current = controller;
+
+    setGithubLoading(true);
+    setGithubError('');
+
+    eventBus.emit(EVENT_TYPES.REPOSITORIES_FETCH_STARTED, {
+      status: 'processing',
+      description: 'GitHub repositories requested for the portfolio project dashboard.',
+      data: {
+        username: 'MeetKumar6789',
+      },
+    });
+
+    try {
+      const repos = await fetchGitHubRepositories({ signal: controller.signal });
+      setGithubRepos(repos);
+      eventBus.emit(EVENT_TYPES.REPOSITORIES_FETCH_COMPLETED, {
+        status: 'success',
+        description: 'Repository data retrieved successfully from the GitHub REST API.',
+        data: {
+          total: repos.length,
+          username: 'MeetKumar6789',
+        },
+      });
+    } catch (err) {
+      if (err.name === 'AbortError') {
+        return;
+      }
+
+      const message = err.message || 'Unable to load GitHub repositories at the moment.';
+      setGithubError(message);
+      eventBus.emit(EVENT_TYPES.REPOSITORIES_FETCH_FAILED, {
+        status: 'failed',
+        description: 'Repository fetch failed while contacting the GitHub API.',
+        data: {
+          error: message,
+        },
+      });
+    } finally {
+      if (!controller.signal.aborted) {
+        setGithubLoading(false);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    loadGitHubRepositories();
+
+    return () => {
+      githubAbortControllerRef.current?.abort();
+    };
+  }, [loadGitHubRepositories]);
 
   // GET /tasks
   const loadTasks = async () => {
@@ -289,9 +355,73 @@ function Projects({ skills }) {
       (t.description && t.description.toLowerCase().includes(query.toLowerCase()))
   );
 
+  const filteredGithubRepos = githubRepos.filter((repo) => {
+    const searchableText = `${repo.name} ${repo.description ?? ''} ${repo.language ?? ''}`.toLowerCase();
+    return searchableText.includes(repoQuery.toLowerCase());
+  });
+
   return (
     <div className="projects-page">
       <Skills skills={skills} />
+
+      <section className="github-projects" aria-label="GitHub repositories overview">
+        <div className="section-label">
+          <span className="label-dot"></span>
+          GitHub Portfolio
+        </div>
+        <h2 className="section-heading">
+          Live GitHub
+          <span className="heading-accent"> Projects</span>
+        </h2>
+
+        <div className="repo-search-box">
+          <label htmlFor="repo-search">Search repositories</label>
+          <input
+            id="repo-search"
+            type="text"
+            value={repoQuery}
+            onChange={(event) => setRepoQuery(event.target.value)}
+            placeholder="Filter by name, tag, or language..."
+          />
+        </div>
+
+        {githubLoading ? (
+          <Spinner />
+        ) : githubError ? (
+          <div className="projects-error" role="alert">
+            <p>Unable to load GitHub repositories right now.</p>
+            <p>{githubError}</p>
+            <button type="button" className="retry-button" onClick={loadGitHubRepositories}>
+              Retry
+            </button>
+          </div>
+        ) : filteredGithubRepos.length === 0 ? (
+          <p className="no-repos">No GitHub repositories match your search.</p>
+        ) : (
+          <div className="repo-list">
+            {filteredGithubRepos.map((repo) => (
+              <a
+                key={repo.id}
+                href={repo.html_url}
+                target="_blank"
+                rel="noreferrer"
+                className="repo-item"
+              >
+                <div className="repo-topline">
+                  <span className="repo-name">{repo.name}</span>
+                  <span className="repo-stars">★ {repo.stargazers_count}</span>
+                </div>
+                <p className="repo-description">{repo.description}</p>
+                <div className="repo-meta">
+                  <span>{repo.language}</span>
+                  <span>{new Date(repo.updated_at).toLocaleDateString()}</span>
+                </div>
+                <span className="repo-link">{repo.full_name}</span>
+              </a>
+            ))}
+          </div>
+        )}
+      </section>
 
       <section className="github-projects" aria-label="Task Manager Overview">
         <div className="section-label">

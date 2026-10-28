@@ -235,28 +235,35 @@ app.use((err, req, res, next) => {
 // ====================================================
 
 async function startServer() {
-  try {
-    const mongoUri =
-      process.env.MONGO_URI ||
-      "mongodb://127.0.0.1:27017/task-manager-db";
+  const mongoUri =
+    process.env.MONGO_URI ||
+    "mongodb://127.0.0.1:27017/task-manager-db";
+  const maxAttempts = 5;
 
-    await mongoose.connect(mongoUri);
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    try {
+      await mongoose.connect(mongoUri);
+      console.log("Connected to MongoDB");
 
-    console.log("Connected to MongoDB");
+      app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+        console.log("Cache TTL: 60 seconds");
+        console.log("Cache: node-cache");
+      });
+      return;
+    } catch (error) {
+      console.error(
+        `MongoDB connection attempt ${attempt}/${maxAttempts} failed:`,
+        error.message
+      );
 
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-      console.log(`Cache TTL: 60 seconds`);
-      console.log(`Cache: node-cache`);
-    });
-  } catch (error) {
-    console.error(
-      "MongoDB connection failed:",
-      error.message
-    );
-
-    process.exit(1);
+      if (attempt < maxAttempts) {
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+      }
+    }
   }
+
+  process.exit(1);
 }
 
 startServer();

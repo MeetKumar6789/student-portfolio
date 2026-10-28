@@ -6,6 +6,7 @@ import PostgresLogo from './components/PostgresLogo';
 const Home = lazy(() => import('./components/Home'));
 const Projects = lazy(() => import('./components/Projects'));
 const Contact = lazy(() => import('./components/Contact'));
+const EventMonitor = lazy(() => import('./components/EventMonitor'));
 const NotFound = lazy(() => import('./components/NotFound'));
 const Login = lazy(() => import('./components/Login'));
 
@@ -215,6 +216,10 @@ function App() {
             <Route
               path="/contact"
               element={<Contact email={contactEmail} socialLinks={socialLinksData} />}
+            />
+            <Route
+              path="/event-monitor"
+              element={<EventMonitor />}
             />
             <Route
               path="*"
