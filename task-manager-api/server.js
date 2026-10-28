@@ -54,6 +54,14 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
+app.get("/health", (req, res) => {
+  return res.status(200).json({
+    status: "ok",
+    service: "task-manager-backend",
+    timestamp: new Date().toISOString(),
+  });
+});
+
 // Check JSON content type for POST and PUT
 app.use((req, res, next) => {
   if (req.method === "POST" || req.method === "PUT") {

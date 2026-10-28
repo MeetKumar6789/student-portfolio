@@ -15,6 +15,24 @@ async function listen() {
   return server;
 }
 
+test("GET /health returns the backend service status", async () => {
+  const server = await listen();
+
+  try {
+    const response = await fetch(`http://127.0.0.1:${server.address().port}/health`);
+    const body = await response.json();
+
+    assert.equal(response.status, 200);
+    assert.equal(body.status, "ok");
+    assert.equal(body.service, "task-manager-backend");
+    assert.ok(Number.isFinite(Date.parse(body.timestamp)));
+  } finally {
+    await new Promise((resolve, reject) => {
+      server.close((error) => (error ? reject(error) : resolve()));
+    });
+  }
+});
+
 test("GET /tasks rejects requests without authentication", async () => {
   const server = await listen();
 

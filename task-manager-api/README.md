@@ -85,6 +85,9 @@ The Task model is defined in `models/Task.js` and includes:
 
 ## API Endpoints
 
+### GET /health
+Returns HTTP 200 with the backend service status and an ISO timestamp. This liveness endpoint does not query MongoDB.
+
 ### POST /register
 Creates a user. The request body requires `email` and a password of at least six characters.
 

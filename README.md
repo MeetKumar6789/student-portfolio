@@ -512,7 +512,7 @@ Use the following checklist when demonstrating the project.
 
 The [CI Pipeline workflow](.github/workflows/ci.yml) automatically checks the frontend and backend on every push to `master` and every pull request targeting `master`. It runs on `ubuntu-latest` with Node.js 22, installs each project’s dependencies from its own lockfile with `npm ci`, runs the existing root lint script and frontend production build, and runs the backend tests. Any failed install, lint, test, or build step marks its job as failed.
 
-The jobs do not need MongoDB or credentials. The task API tests exercise the real Express application and protected `GET /tasks` route; they stub the model lookups, so they verify both the HTTP 200 task response and the unauthenticated HTTP 401 response without contacting a database or changing authentication behavior.
+The jobs do not need MongoDB or credentials. The task API tests exercise the real Express application, including the `GET /health` liveness endpoint and protected `GET /tasks` route; model lookups are stubbed, so the tests verify the HTTP responses without contacting a database or changing authentication behavior.
 
 Run the checks locally from the repository root:
 
