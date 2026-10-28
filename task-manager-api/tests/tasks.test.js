@@ -23,7 +23,7 @@ test("GET /health returns the backend service status", async () => {
     const body = await response.json();
 
     assert.equal(response.status, 200);
-    assert.equal(body.status, "failed");
+    assert.equal(body.status, "ok");
     assert.equal(body.service, "task-manager-backend");
     assert.ok(Number.isFinite(Date.parse(body.timestamp)));
   } finally {
