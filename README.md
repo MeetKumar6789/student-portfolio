@@ -1,6 +1,6 @@
 # Student Portfolio & Task Management System
 
-**Practical 1–11 | Full-Stack Development, Asynchronous Processing, Caching & Docker**
+**Full-Stack Development, Asynchronous Processing, Caching & Docker**
 
 A full-stack student portfolio developed using React, Vite, Node.js, Express, and MongoDB. The project progressively integrates frontend development, REST API design, database operations, authentication, task management, caching, asynchronous event-driven processing, and containerization using Docker Compose.
 
