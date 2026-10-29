@@ -1,605 +1,937 @@
 # Student Portfolio & Task Management System
 
-[![CI Pipeline](https://github.com/MeetKumar6789/student-portfolio/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/MeetKumar6789/student-portfolio/actions/workflows/ci.yml)
+```{=html}
+<p align="center">
+```
+`<strong>`{=html}A full-stack portfolio that grows through 13
+practicals`</strong>`{=html}`<br>`{=html} React · Vite · Node.js ·
+Express · MongoDB · JWT · NodeCache · Docker · GitHub Actions · Groq AI
+```{=html}
+</p>
+```
+```{=html}
+<p align="center">
+```
+`<a href="https://github.com/MeetKumar6789/student-portfolio/actions/workflows/ci.yml">`{=html}
+`<img src="https://github.com/MeetKumar6789/student-portfolio/actions/workflows/ci.yml/badge.svg?branch=master" alt="CI Pipeline">`{=html}
+`</a>`{=html}
+`<img src="https://img.shields.io/badge/Practicals-01--13-4361ee" alt="Practicals 1 to 13">`{=html}
+`<img src="https://img.shields.io/badge/Frontend-React%20%2B%20Vite-61dafb" alt="React and Vite">`{=html}
+`<img src="https://img.shields.io/badge/Backend-Node.js%20%2B%20Express-339933" alt="Node.js and Express">`{=html}
+`<img src="https://img.shields.io/badge/Database-MongoDB-47A248" alt="MongoDB">`{=html}
+`<img src="https://img.shields.io/badge/Containers-Docker-2496ED" alt="Docker">`{=html}
+```{=html}
+</p>
+```
+A personal portfolio and task-management application built as a
+progressive full-stack project. Across 13 practicals, it brings together
+frontend development, REST APIs, database operations, authentication,
+caching, asynchronous workflows, event-driven design, Docker, CI
+automation, and AI-assisted task descriptions.
 
-**Full-Stack Development, Asynchronous Processing, Caching & Docker**
+> **Project principle:** AI suggestions are optional. Users can review
+> and edit generated text, and normal manual task creation remains
+> available if the AI provider is unavailable.
 
-A full-stack student portfolio developed using React, Vite, Node.js, Express, and MongoDB. The project progressively integrates frontend development, REST API design, database operations, authentication, task management, caching, asynchronous event-driven processing, and containerization using Docker Compose.
+------------------------------------------------------------------------
 
----
+## Quick navigation
 
-## Table of Contents
+-   [✨ Highlights](#-highlights)
+-   [🧭 Practicals 1--13](#-practicals-113)
+-   [🏗️ Architecture](#️-architecture)
+-   [🧰 Technology stack](#-technology-stack)
+-   [🚀 Run locally](#-run-locally)
+-   [🐳 Run with Docker](#-run-with-docker)
+-   [🔌 API reference](#-api-reference)
+-   [🤖 Practical 13: Groq
+    AI](#-practical-13-groq-ai-task-description-generator)
+-   [⚡ Caching](#-caching)
+-   [🔄 Async and event-driven
+    workflows](#-async-and-event-driven-workflows)
+-   [🧪 Testing and verification](#-testing-and-verification)
+-   [🔐 Environment and security](#-environment-and-security)
+-   [🗺️ Demo checklist](#️-demo-checklist)
+-   [🎓 Learning outcomes](#-learning-outcomes)
 
-1. [Project Overview](#1-project-overview)
-2. [Objectives](#2-objectives)
-3. [Technology Stack](#3-technology-stack)
-4. [Practical 1–11 Overview](#4-practical-111-overview)
-5. [System Architecture](#5-system-architecture)
-6. [Project Structure](#6-project-structure)
-7. [Features](#7-features)
-8. [Installation and Execution](#8-installation-and-execution)
-9. [Docker Setup](#9-docker-setup)
-10. [API Documentation](#10-api-documentation)
-11. [Caching Implementation](#11-caching-implementation)
-12. [Asynchronous Processing and Event-Driven Architecture](#12-asynchronous-processing-and-event-driven-architecture)
-13. [Testing and Verification](#13-testing-and-verification)
-    - [Practical 12 — CI/CD Pipeline with GitHub Actions](#practical-12--cicd-pipeline-with-github-actions)
-14. [Environment Configuration](#14-environment-configuration)
-15. [Expected Results](#15-expected-results)
-16. [Learning Outcomes](#16-learning-outcomes)
-17. [Conclusion](#17-conclusion)
+------------------------------------------------------------------------
 
----
+## ✨ Highlights
 
-## 1. Project Overview
+```{=html}
+<table>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td width="50%">
+```
+```{=html}
+<h3>
+```
+🌐 Portfolio experience
+```{=html}
+</h3>
+```
+Responsive React interface, reusable components, navigation, project
+information, contact form, and GitHub repository fetching.
+```{=html}
+</td>
+```
+```{=html}
+<td width="50%">
+```
+```{=html}
+<h3>
+```
+✅ Task management
+```{=html}
+</h3>
+```
+Register and sign in, authenticate requests, and create, read, update,
+and delete tasks backed by MongoDB.
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td>
+```
+```{=html}
+<h3>
+```
+⚡ Performance
+```{=html}
+</h3>
+```
+NodeCache with a 60-second TTL, cache invalidation after mutations, and
+cache statistics for practical verification.
+```{=html}
+</td>
+```
+```{=html}
+<td>
+```
+```{=html}
+<h3>
+```
+🔔 Event monitoring
+```{=html}
+</h3>
+```
+A custom event bus, asynchronous contact-processing simulation,
+repository-fetch events, and a live event monitor.
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+<tr>
+```
+```{=html}
+<td>
+```
+```{=html}
+<h3>
+```
+🐳 Containerization
+```{=html}
+</h3>
+```
+Docker Compose services for the frontend, Express API, and MongoDB, with
+service networking and persistent database storage.
+```{=html}
+</td>
+```
+```{=html}
+<td>
+```
+```{=html}
+<h3>
+```
+🧠 AI-assisted descriptions
+```{=html}
+</h3>
+```
+An authenticated backend endpoint uses Groq to suggest task descriptions
+from a title. Suggestions remain editable.
+```{=html}
+</td>
+```
+```{=html}
+</tr>
+```
+```{=html}
+</table>
+```
+## 🧭 Practicals 1--13
 
-The Student Portfolio & Task Management System combines a personal portfolio website with a task management backend.
+The project is documented as a progression from frontend foundations to
+a containerized, tested, AI-enabled application. Some earlier practicals
+were grouped by phase in the original project notes; consult the
+individual reports for their exact prescribed titles and marking
+criteria.
 
-The frontend provides the portfolio interface, project information, contact form, and event monitoring features. The backend exposes REST APIs for authentication and task management. MongoDB stores application data, while NodeCache improves the performance of frequently accessed task endpoints.
+```{=html}
+<details open>
+```
+```{=html}
+<summary>
+```
+`<strong>`{=html}Practicals 1--4 · Portfolio
+foundation`</strong>`{=html}
+```{=html}
+</summary>
+```
+**Focus:** frontend structure and presentation.
 
-The application also demonstrates asynchronous processing, event-based communication within the frontend, and Docker-based deployment of the frontend, backend, and database.
+-   Build the portfolio interface and reusable components.
+    -   Implement styling, page sections, and navigation.
+    -   Organize the application structure and frontend assets.
+    -   Develop the foundation for later integrations.
 
-## 2. Objectives
+    `<em>`{=html}The source README groups these practicals together and
+    does not specify each practical's exact title.`</em>`{=html}
 
-- Develop a responsive portfolio using React and Vite.
-- Build RESTful APIs using Node.js and Express.
-- Connect the backend to MongoDB using Mongoose.
-- Implement user registration, login, and JWT-based authentication.
-- Perform task creation, retrieval, updating, and deletion.
-- Validate user input and protect API routes.
-- Improve API response performance through in-memory caching.
-- Demonstrate asynchronous operations using Promises and async/await.
-- Implement a custom event bus and live event monitoring.
-- Fetch GitHub repository information asynchronously.
-- Containerize the application using Docker and Docker Compose.
-- Maintain persistent database storage using a Docker volume.
+```{=html}
+</details>
+```
+```{=html}
+<details>
+```
+```{=html}
+<summary>
+```
+`<strong>`{=html}Practical 5 · Task management and
+database`</strong>`{=html}
+```{=html}
+</summary>
+```
+**Focus:** persistent task data and CRUD operations.
 
-## 3. Technology Stack
+-   Define the task model and connect to MongoDB.
+    -   Implement create, read, update, and delete operations.
+    -   Connect task-management behavior to the application.
 
-| Category | Technologies |
-|---|---|
-| Frontend | React, JavaScript, HTML, CSS |
-| Frontend tooling | Vite, npm |
-| Backend | Node.js, Express.js |
-| Database | MongoDB, Mongoose |
-| Authentication | JSON Web Tokens (JWT), bcrypt |
-| Validation | Server-side input validation and middleware |
-| Caching | NodeCache, 60-second TTL |
-| Asynchronous processing | Promises, async/await, Fetch API |
-| Event-driven design | Custom JavaScript event bus |
-| External API | GitHub REST API |
-| Containerization | Docker, Docker Compose |
-| Web server | Nginx |
-| Version control | Git, GitHub |
+```{=html}
+</details>
+```
+```{=html}
+<details>
+```
+```{=html}
+<summary>
+```
+`<strong>`{=html}Practicals 6--8 · Backend and application
+integration`</strong>`{=html}
+```{=html}
+</summary>
+```
+**Focus:** API development and secure frontend/backend communication.
 
-## 4. Practical 1–11 Overview
+-   Progressively develop backend API functionality.
+    -   Implement authentication and request validation.
+    -   Integrate the frontend with backend endpoints.
+    -   Use the individual practical reports for the exact titles and
+        detailed requirements.
 
-The project evolves through the following development stages.
+```{=html}
+</details>
+```
+```{=html}
+<details>
+```
+```{=html}
+<summary>
+```
+`<strong>`{=html}Practical 9 · Caching and performance`</strong>`{=html}
+```{=html}
+</summary>
+```
+**Focus:** reducing repeated database reads with NodeCache.
 
-| Practical | Area | Implementation |
-|---|---|---|
-| 1–4 | Portfolio foundation | Frontend development, portfolio components, styling, navigation, and application structure |
-| 5 | Task management and database | Task model, MongoDB integration, and CRUD operations |
-| 6–8 | Backend and application integration | Progressive development of API functionality, authentication, validation, and frontend/backend integration |
-| 9 | API performance | NodeCache integration, 60-second TTL, cache hits and misses, cache invalidation, and performance testing |
-| 10 | Asynchronous and event-driven architecture | Async contact processing, GitHub repository fetching, custom event bus, and event monitor |
-| 11 | Docker containerization | Docker images, Compose services, inter-container networking, MongoDB persistence, and application startup |
+-   Configure a 60-second time-to-live (TTL).
+    -   Cache task-list and individual-task reads where implemented.
+    -   Invalidate affected cache entries after task mutations.
+    -   Inspect cache statistics and compare repeated requests.
+    -   Understand the difference between in-memory cache data and
+        persistent MongoDB data.
 
-*Note: Practicals 1–4 and 6–8 are grouped by development phase. Refer to the individual practical reports for their exact prescribed titles and marking criteria.*
+```{=html}
+</details>
+```
+```{=html}
+<details>
+```
+```{=html}
+<summary>
+```
+`<strong>`{=html}Practical 10 · Asynchronous processing and event-driven
+architecture`</strong>`{=html}
+```{=html}
+</summary>
+```
+**Focus:** responsive asynchronous workflows and observable events.
 
-### Practical 9 — Caching
+-   Use Promises, `async/await`, and `try/catch/finally`.
 
-The backend uses NodeCache to cache frequently accessed task data.
+    -   Show loading, success, empty, and error states.
+    -   Fetch GitHub repository information asynchronously.
+    -   Use a custom event bus to decouple event producers and
+        consumers.
+    -   Display recent events in the Event Monitor.
+    -   Test success and simulated failure flows.
 
-- Cache time-to-live: 60 seconds.
-- Cached endpoints include task-list and individual-task reads.
-- Create, update, and delete operations invalidate affected cache entries.
-- Cache statistics and cache clearing support verification.
-- Repeated reads can be compared to observe cache hits and misses.
+    **Example events**
 
-### Practical 10 — Asynchronous Processing and Event-Driven Architecture
+    `CONTACT_FORM_SUBMITTED` · `MESSAGE_PROCESSING_STARTED` ·
+    `MESSAGE_PROCESSING_COMPLETED` · `MESSAGE_PROCESSING_FAILED` ·
+    `REPOSITORIES_FETCH_STARTED` · `REPOSITORIES_FETCH_COMPLETED` ·
+    `REPOSITORIES_FETCH_FAILED`
 
-The portfolio demonstrates asynchronous operations without blocking the user interface.
+    > Contact processing is a simulation. It does not send real emails
+    > or use a production message broker.
 
-- Promise-based contact processing.
-- Async/await for asynchronous workflows.
-- Loading, success, empty, and error states.
-- GitHub repository fetching.
-- Custom event bus for event dispatching.
-- Event monitor for recent application events.
-- Error handling using try/catch/finally.
-- Optional failure simulation for testing error flows.
+```{=html}
+</details>
+```
+```{=html}
+<details>
+```
+```{=html}
+<summary>
+```
+`<strong>`{=html}Practical 11 · Docker
+containerization`</strong>`{=html}
+```{=html}
+</summary>
+```
+**Focus:** packaging and running the application services together.
 
-Events include:
+-   Build frontend and backend images.
+    -   Run frontend, backend, and MongoDB using Docker Compose.
+    -   Connect services through an internal Docker network.
+    -   Serve the frontend through Nginx.
+    -   Use MongoDB health checks and a named volume for persistent
+        data.
+    -   Inspect service logs and verify startup behavior.
 
-- `CONTACT_FORM_SUBMITTED`
-- `MESSAGE_PROCESSING_STARTED`
-- `MESSAGE_PROCESSING_COMPLETED`
-- `MESSAGE_PROCESSING_FAILED`
-- `REPOSITORIES_FETCH_STARTED`
-- `REPOSITORIES_FETCH_COMPLETED`
-- `REPOSITORIES_FETCH_FAILED`
+      Service        Typical host port Role
+      ------------ ------------------- ------------------
+      `frontend`                `5173` Portfolio UI
+      `backend`                 `5000` Express REST API
+      `mongodb`                `27017` Database
 
-Contact processing is simulated; it does not send real emails or use a production message broker.
+    Actual port mappings are defined in `docker-compose.yml`.
 
-### Practical 11 — Dockerized Application
+```{=html}
+</details>
+```
+```{=html}
+<details>
+```
+```{=html}
+<summary>
+```
+`<strong>`{=html}Practical 12 · CI pipeline with GitHub
+Actions`</strong>`{=html}
+```{=html}
+</summary>
+```
+**Focus:** automatically checking changes before integration.
 
-Docker Compose runs the frontend, backend, and MongoDB as separate services.
+The workflow in `.github/workflows/ci.yml` is documented to run on
+pushes to `master` and pull requests targeting `master`.
 
-- Frontend served through Nginx.
-- Express backend exposed on port 5000.
-- MongoDB exposed on port 27017.
-- Frontend exposed on port 5173.
-- Internal communication through a Docker network.
-- Backend connects to MongoDB using the service hostname `mongodb`.
-- MongoDB uses a named volume for persistent data.
-- Backend startup depends on MongoDB's health check.
+-   Install dependencies from lockfiles.
 
-## 5. System Architecture
+    -   Run the configured lint command.
+    -   Build the frontend.
+    -   Run backend tests.
+    -   Inspect failed workflow steps to identify installation, test, or
+        build problems.
 
-```text
-                  User / Browser
-                        |
-                        v
-              React + Vite Frontend
-                  Port 5173
-                        |
-                        v
-                Express REST API
-                  Port 5000
-                        |
-              +---------+---------+
-              |                   |
-              v                   v
-        JWT Authentication   NodeCache
-              |              TTL: 60 sec
-              +---------+---------+
-                        |
-                        v
-                    MongoDB
-                  Port 27017
-                        |
-                        v
-               Persistent Data Volume
+    **CI is not deployment:** the documented workflow checks code; it
+    does not automatically deploy the application.
+
+    > **Evidence note:** the original README says the demonstration run
+    > links were pending. Add real GitHub Actions run links after
+    > verifying the runs in the repository's **Actions** tab.
+
+```{=html}
+</details>
+```
+```{=html}
+<details>
+```
+```{=html}
+<summary>
+```
+`<strong>`{=html}Practical 13 · Groq AI task-description
+generator`</strong>`{=html}
+```{=html}
+</summary>
+```
+**Focus:** adding an AI suggestion workflow without replacing normal
+task creation.
+
+1.  Enter a task title.
+2.  Click **Generate Description**.
+3.  Review and edit the suggested description.
+4.  Confirm before replacing an existing description when prompted.
+5.  Save through the existing task-creation flow.
+
+**Endpoint:** `POST /api/ai/generate-description`
+
+**Request body:**
+
+``` json
+  {
+    "title": "Complete the database assignment"
+  }
 ```
 
-The frontend communicates with the backend through HTTP requests. The backend validates requests, authenticates protected operations, uses the cache where applicable, and accesses MongoDB for persistent data.
+**Successful response contract:**
 
-In Docker Compose, the backend connects to MongoDB using:
-
-`mongodb://mongodb:27017/taskdb`
-
-The hostname `mongodb` refers to the MongoDB service on the internal Docker network.
-
-## 6. Project Structure
-
-```text
-student-portfolio/
-├── frontend/
-│   ├── Dockerfile
-│   ├── nginx.conf
-│   └── .dockerignore
-├── src/
-│   ├── App.jsx
-│   ├── main.jsx
-│   ├── api.js
-│   ├── index.css
-│   ├── components/
-│   │   ├── Contact.jsx
-│   │   ├── EventMonitor.jsx
-│   │   ├── Projects.jsx
-│   │   └── NavBar.jsx
-│   ├── hooks/
-│   │   └── useEventMonitor.js
-│   └── services/
-│       ├── eventBus.js
-│       ├── contactService.js
-│       └── githubService.js
-├── task-manager-api/
-│   ├── server.js
-│   ├── Dockerfile
-│   ├── package.json
-│   └── package-lock.json
-├── reports/
-├── public/
-├── package.json
-├── package-lock.json
-├── vite.config.js
-├── docker-compose.yml
-├── .dockerignore
-├── .gitignore
-├── README.md
-└── README-DOCKER.md
+``` json
+  {
+    "success": true,
+    "description": "A generated task description appears here."
+  }
 ```
 
-The tree shows the principal files and directories; the exact contents depend on the current implementation.
+-   The endpoint requires authentication.
+    -   The Groq API key stays on the backend in `GROQ_API_KEY`.
+    -   The implementation includes a per-authenticated-user cooldown of
+        one AI request per minute.
+    -   The task title is sent to an external AI provider, so users
+        should not include sensitive information.
+    -   Generated text may be inaccurate; review it before saving.
+    -   Manual task creation should remain usable if AI generation
+        fails.
+    -   Automated tests should mock the provider rather than make paid
+        or live API calls.
 
-## 7. Features
+    Provider availability, supported models, rate limits, and charges
+    depend on Groq's current account terms and model availability.
 
-### Portfolio Frontend
+```{=html}
+</details>
+```
+## 🏗️ Architecture
 
-- Portfolio pages and reusable React components.
-- Project information and GitHub repository integration.
-- Contact form with validation and asynchronous feedback.
-- Event monitoring for recent application events.
+``` mermaid
+flowchart TD
+    U[User / Browser] --> FE[React + Vite Frontend]
+    FE -->|HTTP + bearer token| API[Express REST API]
+    FE -->|GitHub REST requests| GH[GitHub API]
+    API --> AUTH[JWT Authentication]
+    API --> CACHE[NodeCache - 60 second TTL]
+    API --> DB[(MongoDB)]
+    API --> AI[Authenticated AI Route]
+    AI --> GROQ[Groq API]
+    API --> LOG[Validation and error handling]
+    DB --> VOL[(Persistent Docker Volume)]
+```
 
-### Task Management Backend
+The frontend communicates with the Express API over HTTP. Protected
+operations use the project's authentication middleware. The backend
+applies validation, caching where appropriate, and MongoDB persistence.
+The AI route sends the task title to Groq and returns a suggestion for
+the frontend to display.
 
-- User registration and login.
-- Password hashing using bcrypt.
-- JWT-based authentication.
-- Protected task endpoints.
-- Create, read, update, and delete operations.
-- MongoDB persistence.
-- Input validation and error handling.
-- In-memory response caching.
+For Docker Compose, the backend uses the MongoDB service hostname on the
+internal network, typically:
 
-### Docker Deployment
+``` text
+mongodb://mongodb:27017/taskdb
+```
 
-- Separate frontend, backend, and database containers.
-- Automated image builds.
-- Docker network for service communication.
-- MongoDB health checks.
-- Persistent database volume.
-- Restartable application services.
+Use the URI and environment configuration defined by your actual
+runtime. A local backend may use a local MongoDB address instead.
 
-## 8. Installation and Execution
+## 🧰 Technology stack
+
+  Area                  Technologies
+  --------------------- ---------------------------------------
+  Frontend              React, JavaScript, HTML, CSS
+  Frontend tooling      Vite, npm
+  Backend               Node.js, Express.js
+  Database              MongoDB, Mongoose
+  Authentication        JWT, bcrypt
+  Validation            Server-side validation and middleware
+  Caching               NodeCache, 60-second TTL
+  Async workflows       Promises, `async/await`, Fetch API
+  Event-driven design   Custom JavaScript event bus
+  External services     GitHub REST API, Groq API
+  Containerization      Docker, Docker Compose
+  Web server            Nginx
+  CI                    GitHub Actions
+  Version control       Git, GitHub
+
+## 🚀 Run locally
 
 ### Prerequisites
 
-For local development:
+-   Node.js and npm versions compatible with the project's package
+    files.
+-   MongoDB running locally or an accessible MongoDB instance.
+-   Git.
+-   A Groq API key only if you want to test AI generation.
 
-- Node.js and npm.
-- MongoDB.
-- Git.
+### 1. Clone the repository
 
-For containerized execution:
-
-- Docker Desktop.
-- Docker Compose.
-
-### Clone the repository
-
-```bash
-git clone <YOUR_GITHUB_REPOSITORY_URL>
+``` bash
+git clone https://github.com/MeetKumar6789/student-portfolio.git
 cd student-portfolio
 ```
 
-Replace the placeholder with your actual GitHub repository URL.
+### 2. Install frontend dependencies
 
-### Install frontend dependencies
-
-Run from the project root:
-
-```bash
+``` bash
 npm install
 ```
 
-### Start the frontend
+### 3. Configure the backend environment
 
-```bash
+Create or update `task-manager-api/.env` using the existing
+`.env.example` as a reference. Keep your real credentials only in the
+ignored local `.env` file.
+
+Example variable names:
+
+``` env
+MONGO_URI=mongodb://127.0.0.1:27017/taskdb
+JWT_SECRET=replace-with-a-strong-local-secret
+GROQ_API_KEY=your_groq_api_key
+```
+
+> Environment variable names and the MongoDB URI must match the current
+> backend configuration. Keep existing variables already required by
+> your project. Never paste real secrets into this README.
+
+### 4. Install backend dependencies
+
+Open a second terminal:
+
+``` bash
+cd task-manager-api
+npm install
+```
+
+### 5. Start the backend
+
+From `task-manager-api/`:
+
+``` bash
+npm start
+```
+
+If the package does not define a `start` script, use the command
+specified in its `package.json` (the existing project documentation also
+describes `node server.js`).
+
+The API is expected to listen on port `5000` when configured
+accordingly.
+
+### 6. Start the frontend
+
+In another terminal, from the repository root:
+
+``` bash
 npm run dev
 ```
 
-Open:
+Open <http://localhost:5173>.
 
-http://localhost:5173
+### 7. Build the frontend
 
-### Start the backend locally
+From the repository root:
 
-Open another terminal:
-
-```bash
-cd task-manager-api
-npm install
-node server.js
-```
-
-The backend should connect to MongoDB and listen on port 5000, provided its environment variables and database configuration are correct.
-
-For local execution, configure the MongoDB URI and JWT secret according to your backend configuration.
-
-### Build the frontend
-
-From the project root:
-
-```bash
+``` bash
 npm run build
 ```
 
-The production build is generated in the `dist/` directory.
+Vite writes the production build to `dist/`.
 
-## 9. Docker Setup
+## 🐳 Run with Docker
 
-Docker Compose is the recommended way to run the complete application.
+Run these commands from the directory containing `docker-compose.yml`.
 
-Run the following commands from the directory containing `docker-compose.yml`.
+### Build and start
 
-### Build the images
-
-```bash
+``` bash
 docker compose build
-```
-
-### Start the services
-
-```bash
 docker compose up -d
-```
-
-### Verify container status
-
-```bash
 docker compose ps
 ```
 
-Expected services:
+### Inspect logs
 
-| Service | Host port | Purpose |
-|---|---:|---|
-| `frontend` | 5173 | Portfolio interface |
-| `backend` | 5000 | REST API |
-| `mongodb` | 27017 | Database |
-
-MongoDB should report a healthy status, and the frontend and backend should be running.
-
-### View logs
-
-```bash
+``` bash
 docker compose logs --tail=100
-```
-
-For a specific service:
-
-```bash
 docker compose logs --tail=50 backend
 docker compose logs --tail=50 frontend
 docker compose logs --tail=50 mongodb
 ```
 
-### Stop the application
+### Validate Compose configuration
 
-```bash
+``` bash
+docker compose config --quiet
+```
+
+### Stop services
+
+``` bash
 docker compose down
 ```
 
-This stops and removes the Compose containers and network while preserving the named MongoDB volume by default.
+This normally preserves the named MongoDB volume. Avoid
+`docker compose down -v` if you need to keep your database data.
 
-**Important:** Do not use `docker compose down -v` when you need to preserve your database. The `-v` option removes Compose-managed named volumes.
+### Groq key in Docker
 
-## 10. API Documentation
+If AI generation is enabled in Compose, configure `GROQ_API_KEY` through
+the local environment or an ignored environment file as supported by the
+Compose configuration. Do not hardcode it in `docker-compose.yml`,
+frontend variables, image build arguments, or source code. After
+changing environment configuration, recreate the backend container so it
+receives the updated variable.
 
-The backend uses Express and exposes authentication and task-management routes.
+## 🔌 API reference
 
-Base URL:
+Base URL for local development:
 
-`http://localhost:5000`
+``` text
+http://localhost:5000
+```
 
-### Authentication endpoints
+  --------------------------------------------------------------------------------
+  Method                  Endpoint                         Purpose
+  ----------------------- -------------------------------- -----------------------
+  `POST`                  `/register`                      Register a user
 
-| Method | Endpoint | Purpose |
-|---|---|---|
-| POST | `/register` | Register a user |
-| POST | `/login` | Authenticate a user |
-| GET | `/me` | Retrieve the authenticated user's information |
+  `POST`                  `/login`                         Authenticate a user
 
-### Task endpoints
+  `GET`                   `/me`                            Get the authenticated
+                                                           user's information
 
-| Method | Endpoint | Purpose |
-|---|---|---|
-| GET | `/tasks` | Retrieve tasks |
-| POST | `/tasks` | Create a task |
-| GET | `/tasks/:id` | Retrieve a specific task |
-| PUT | `/tasks/:id` | Update a task |
-| DELETE | `/tasks/:id` | Delete a task |
+  `GET`                   `/tasks`                         Retrieve tasks
 
-Task endpoints require authentication where configured by the backend middleware.
+  `POST`                  `/tasks`                         Create a task
 
-### Cache endpoints
+  `GET`                   `/tasks/:id`                     Retrieve a specific
+                                                           task
 
-| Method | Endpoint | Purpose |
-|---|---|---|
-| GET | `/tasks/cache/stats` | Retrieve cache statistics |
-| DELETE | `/tasks/cache/clear` | Clear the task cache |
+  `PUT`                   `/tasks/:id`                     Update a task
 
-Use the actual request body and authentication format defined by your backend when testing these endpoints.
+  `DELETE`                `/tasks/:id`                     Delete a task
 
-A `404 Route not found` response at `/` is possible when the root endpoint is not defined. Test the routes listed above instead.
+  `GET`                   `/tasks/cache/stats`             Retrieve cache
+                                                           statistics, if enabled
 
-## 11. Caching Implementation
+  `DELETE`                `/tasks/cache/clear`             Clear the task cache,
+                                                           if enabled
 
-NodeCache provides an in-memory cache for frequently accessed task data.
+  `POST`                  `/api/ai/generate-description`   Generate an AI task
+                                                           description
+  --------------------------------------------------------------------------------
 
-### Cache workflow
+Protected routes require the bearer-token format expected by the
+backend. Check the route and middleware definitions for the exact
+authentication requirements and request schemas. The `/` route may
+return `404` if no root endpoint is defined; test the documented
+endpoints instead.
 
-1. A client requests a task or task list.
-2. The backend checks the cache.
-3. If a valid entry exists, the cached result is returned.
-4. Otherwise, the backend retrieves the data from MongoDB and caches it.
-5. Entries expire after 60 seconds.
-6. Task mutations invalidate affected cached data to prevent stale responses.
+### Example: call the AI endpoint
 
-### Benefits
+First sign in using the existing login endpoint and obtain the token
+returned by your application. Then make an authenticated request:
 
-- Reduces repeated database reads.
-- Improves response times for repeated requests.
-- Demonstrates cache hits and misses.
-- Provides a practical example of cache invalidation.
+``` bash
+curl -X POST http://localhost:5000/api/ai/generate-description \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_LOGIN_TOKEN" \
+  -d "{\"title\":\"Complete the database assignment\"}"
+```
 
-NodeCache is in-memory storage. Its contents are not persistent and are separate from the MongoDB data volume.
+Replace `YOUR_LOGIN_TOKEN` with your actual local login token. Do not
+commit tokens or include them in public screenshots.
 
-## 12. Asynchronous Processing and Event-Driven Architecture
+## 🤖 Practical 13: Groq AI task-description generator
 
-The frontend uses a custom JavaScript event bus to separate event producers from consumers.
+The AI feature is designed as an assistant, not an automatic task saver.
+
+``` mermaid
+flowchart LR
+    A[Enter task title] --> B[Click Generate Description]
+    B --> C[Authenticated Express route]
+    C --> D[Validate title and cooldown]
+    D --> E[Groq chat completion]
+    E --> F[Return description]
+    F --> G[Review and edit]
+    G --> H[Save through normal task flow]
+```
+
+### Behavior and safeguards
+
+-   **Authentication:** requests use the existing authenticated API
+    flow.
+-   **Validation:** the backend validates the title before calling the
+    provider.
+-   **Cooldown:** one AI request per authenticated user per minute, as
+    implemented.
+-   **Secret handling:** the key is backend-only and must never be
+    exposed to React.
+-   **User control:** the user can review and edit the suggestion.
+-   **Graceful degradation:** AI failure should not prevent manual task
+    creation.
+-   **Privacy:** task titles are sent to Groq; avoid sensitive content.
+-   **Testing:** use mocks for automated tests so the suite does not
+    require a live provider request.
+
+### Troubleshooting
+
+```{=html}
+<details>
+```
+```{=html}
+<summary>
+```
+`<strong>`{=html}AI request returns 401 or 403`</strong>`{=html}
+```{=html}
+</summary>
+```
+Check that `GROQ_API_KEY` is present in the backend environment, valid,
+and permitted for the selected model. Verify the model name against
+Groq's current model documentation and check account/project
+restrictions. Restart the backend after changing `.env`. Never print the
+key in logs.
+```{=html}
+</details>
+```
+```{=html}
+<details>
+```
+```{=html}
+<summary>
+```
+`<strong>`{=html}AI request returns 429`</strong>`{=html}
+```{=html}
+</summary>
+```
+The app's per-user cooldown may be active, or the provider may be
+enforcing its own rate limit. Wait for the app cooldown to expire and
+inspect sanitized backend diagnostics before retrying.
+```{=html}
+</details>
+```
+```{=html}
+<details>
+```
+```{=html}
+<summary>
+```
+`<strong>`{=html}AI request returns 502 or an empty
+description`</strong>`{=html}
+```{=html}
+</summary>
+```
+Inspect the backend's sanitized error category and verify that the
+installed Groq SDK response is parsed correctly, including
+`choices[0].message.content`. Handle missing or whitespace-only content
+safely. Do not log the task title, API key, authorization header, or raw
+provider response.
+```{=html}
+</details>
+```
+Official links: [Groq API keys](https://console.groq.com/keys) · [Groq
+documentation](https://console.groq.com/docs) · [Groq
+models](https://console.groq.com/docs/models)
+
+## ⚡ Caching
+
+NodeCache is used to reduce repeated reads for supported task endpoints.
+
+``` mermaid
+flowchart TD
+    R[Incoming read request] --> C{Cache entry exists?}
+    C -- Yes --> H[Return cached data]
+    C -- No --> DB[Read from MongoDB]
+    DB --> SAVE[Cache result for 60 seconds]
+    SAVE --> RESP[Return response]
+    M[Create / Update / Delete] --> INV[Invalidate affected cache entries]
+```
+
+**Verification ideas**
+
+1.  Request the same task data more than once.
+2.  Inspect the cache statistics endpoint if enabled.
+3.  Compare the first request with repeated requests.
+4.  Create, update, or delete a task.
+5.  Verify that affected cache entries are invalidated.
+6.  Remember that NodeCache is in-memory and resets when the process
+    restarts.
+
+## 🔄 Async and event-driven workflows
+
+The frontend uses a custom event bus to separate event publishers from
+event listeners.
 
 ### Contact workflow
 
-```text
-User submits form
-       |
-       v
-CONTACT_FORM_SUBMITTED
-       |
-       v
-MESSAGE_PROCESSING_STARTED
-       |
-       v
-Asynchronous processing
-       |
-       +------ Success ------> MESSAGE_PROCESSING_COMPLETED
-       |
-       +------ Failure ------> MESSAGE_PROCESSING_FAILED
+``` mermaid
+flowchart TD
+    A[Contact form submitted] --> B[CONTACT_FORM_SUBMITTED]
+    B --> C[MESSAGE_PROCESSING_STARTED]
+    C --> D{Processing result}
+    D -- Success --> E[MESSAGE_PROCESSING_COMPLETED]
+    D -- Failure --> F[MESSAGE_PROCESSING_FAILED]
 ```
 
-### Repository workflow
+### GitHub repository workflow
 
-```text
-Projects page requests repositories
-                 |
-                 v
-       REPOSITORIES_FETCH_STARTED
-                 |
-                 v
-          GitHub REST API
-                 |
-          +------+------+
-          |             |
-          v             v
-        Success       Failure
-          |             |
-          v             v
-REPOSITORIES_FETCH_  REPOSITORIES_FETCH_
-     COMPLETED             FAILED
+``` mermaid
+flowchart TD
+    A[Projects page requests repositories] --> B[REPOSITORIES_FETCH_STARTED]
+    B --> C[GitHub REST API]
+    C --> D{Request result}
+    D -- Success --> E[REPOSITORIES_FETCH_COMPLETED]
+    D -- Failure --> F[REPOSITORIES_FETCH_FAILED]
+    E --> G[Update interface]
+    F --> H[Show error state]
 ```
 
-The event monitor subscribes to events and displays recent activity. Async operations use loading states and error handling so that the interface remains responsive.
+The Event Monitor shows recent application events. Loading and error
+states help users understand asynchronous operations. Contact processing
+is simulated and does not represent a production email service or
+message broker.
 
-GitHub API requests can be inspected through the browser's Developer Tools under the Network tab.
+## 🧪 Testing and verification
 
-## 13. Testing and Verification
+### Backend tests
 
-Use the following checklist when demonstrating the project.
+Run from `task-manager-api/`:
 
-### Frontend
+``` bash
+npm test
+```
 
-- [ ] The portfolio opens at `http://localhost:5173`.
-- [ ] Navigation and project pages load correctly.
-- [ ] Contact form validation works.
-- [ ] Successful and simulated failure flows display appropriate messages.
-- [ ] The event monitor displays recent events.
-- [ ] GitHub repository fetching handles loading, empty, and error states.
+### Frontend checks
 
-### Backend
+Run from the repository root, using scripts available in `package.json`:
 
-- [ ] The backend starts on port 5000.
-- [ ] MongoDB connection succeeds.
-- [ ] Registration and login work.
-- [ ] Protected endpoints reject unauthenticated requests.
-- [ ] Task creation, retrieval, updating, and deletion work.
-- [ ] Cache statistics and invalidation can be tested.
-
-### Docker
-
-- [ ] All three containers are running.
-- [ ] MongoDB reports healthy.
-- [ ] The backend connects to MongoDB through the Docker network.
-- [ ] The frontend is accessible through port 5173.
-- [ ] The backend is accessible through port 5000.
-- [ ] Task data persists after containers are stopped and restarted.
-- [ ] The frontend production build succeeds.
-
-### Practical 12 — CI/CD Pipeline with GitHub Actions
-
-The [CI Pipeline workflow](.github/workflows/ci.yml) automatically checks the frontend and backend on every push to `master` and every pull request targeting `master`. It runs on `ubuntu-latest` with Node.js 22, installs each project’s dependencies from its own lockfile with `npm ci`, runs the existing root lint script and frontend production build, and runs the backend tests. Any failed install, lint, test, or build step marks its job as failed.
-
-The jobs do not need MongoDB or credentials. The task API tests exercise the real Express application, including the `GET /health` liveness endpoint and protected `GET /tasks` route; model lookups are stubbed, so the tests verify the HTTP responses without contacting a database or changing authentication behavior.
-
-Run the checks locally from the repository root:
-
-```bash
-npm ci
+``` bash
 npm run lint
 npm run build
 ```
 
-Run backend tests from `task-manager-api/`:
+If a script is not defined, inspect `package.json` and use the project's
+actual configured script.
 
-```bash
-npm ci
-npm test
+### Docker configuration
+
+``` bash
+docker compose config --quiet
+docker compose ps
 ```
 
-**Continuous Integration (CI)** automatically builds and tests code changes so failures are caught before integration. **Continuous Deployment (CD)** automatically delivers or deploys validated changes to an environment. This workflow implements CI only; it does not deploy the application.
+### Git whitespace check
 
-#### Demonstrating a failing test and its correction
-
-After the workflow has been published and a run on `master` has passed, create a short-lived branch and pull request targeting `master`. Change an expected value in `task-manager-api/tests/tasks.test.js` to a deliberately incorrect value, push that change, and confirm the pull-request workflow fails at **Run backend tests**. Open the failed job and test output to record the assertion’s expected and actual values. Restore the correct expectation, push the correction, and confirm the next workflow run succeeds. Do not leave the incorrect expectation in the project.
-
-Run evidence is pending: no GitHub Actions runs were triggered or verified as part of this local implementation. Replace these placeholders with links to the real runs after completing the demonstration:
-
-- Deliberately failed test run: **[add the actual failed run link]**
-- Corrected successful run: **[add the actual successful run link]**
-- Current workflow result: **pending GitHub Actions execution**
-
-To find the runs, open the repository’s **Actions** tab, select **CI Pipeline**, then open each run and inspect the **Backend tests** job. A missing test file or incorrect test path typically causes test discovery to fail before any assertion executes; an assertion failure means the test ran and its actual value differed from the expected value. In either case, inspect the first failing step and its log: installation errors point to dependencies or lockfiles, discovery errors to the script/path, assertion output to behavior or expectations, and frontend build errors to the build output.
-
-#### CI status badge
-
-The badge at the top of this README reports the latest workflow status for `master`. It will show a meaningful result after the workflow is pushed and GitHub Actions completes a run.
-
-## 14. Environment Configuration
-
-Configure the environment variables required by the backend. For example:
-
-```env
-MONGO_URI=mongodb://mongodb:27017/taskdb
-JWT_SECRET=replace-with-a-secure-secret
+``` bash
+git diff --check
 ```
 
-This example is for containerized execution. For local execution, use the MongoDB URI appropriate to your local MongoDB instance.
+### CI workflow
 
-The Compose configuration may provide a development fallback for `JWT_SECRET`. Replace it with a secure value for your own deployment.
+Open the repository's [Actions
+tab](https://github.com/MeetKumar6789/student-portfolio/actions) and
+select **CI Pipeline**. Inspect the actual run and job logs before
+reporting a pass. The README's CI badge indicates the workflow status
+for `master`; it does not replace checking the latest run.
 
-**Security guidelines:**
+## 🔐 Environment and security
 
-- Never commit `.env` files containing secrets.
-- Never commit database credentials, access tokens, or private keys.
-- Keep `.venv/` and `node_modules/` out of version control.
-- Do not publish production secrets in README examples.
-- Use a strong, unique JWT secret outside local demonstrations.
+-   Never commit `.env` files containing secrets.
+-   Keep `GROQ_API_KEY`, `JWT_SECRET`, database credentials, and access
+    tokens private.
+-   Keep `.env.example` limited to variable names and safe placeholders.
+-   Never put provider keys in frontend code or frontend environment
+    variables exposed to the browser.
+-   Do not log API keys, bearer tokens, task titles, or raw provider
+    response bodies.
+-   Validate and authenticate requests on the backend.
+-   Keep dependencies and lockfiles in sync when adding or removing
+    packages.
+-   Use a strong, unique JWT secret outside local demonstrations.
+-   Review staged files before every commit.
 
-## 15. Expected Results
+Before committing, run:
 
-The completed project demonstrates:
+``` bash
+git status --short
+git check-ignore task-manager-api/.env
+git diff --check
+```
 
-- A functional React-based portfolio.
-- A Node.js/Express backend connected to MongoDB.
-- Authentication and protected task operations.
-- CRUD functionality for task data.
-- Improved repeated-read performance through caching.
-- Asynchronous contact and repository workflows.
-- Event-driven communication within the frontend.
-- A live event monitor for recent application activity.
-- Docker-based execution of the frontend, backend, and database.
-- Persistent MongoDB storage across container restarts.
+## 🗺️ Demo checklist
 
-## 16. Learning Outcomes
+Use this checklist when preparing a live demonstration or viva. Tick
+items off as you verify them.
 
-After completing the project, the student gains practical experience in:
+-   [ ] Portfolio opens and navigation works.
+-   [ ] Project information and GitHub repository fetching behave
+    correctly.
+-   [ ] Contact form validation and asynchronous feedback work.
+-   [ ] Event Monitor displays recent events.
+-   [ ] Backend starts and connects to MongoDB.
+-   [ ] Registration and login work.
+-   [ ] Protected routes reject unauthenticated requests.
+-   [ ] Task creation, retrieval, updating, and deletion work.
+-   [ ] Cache behavior and invalidation can be demonstrated.
+-   [ ] Frontend and backend run correctly in Docker Compose.
+-   [ ] MongoDB data persists after stopping and restarting containers.
+-   [ ] CI workflow has been run and its actual result checked.
+-   [ ] Groq generates a task description when valid configuration is
+    available.
+-   [ ] Generated text can be edited before saving.
+-   [ ] Manual task creation still works when AI generation is
+    unavailable.
+-   [ ] No secret files or credentials are included in the Git commit.
 
-- Component-based frontend development.
-- REST API development and integration.
-- NoSQL database design and operations.
-- Authentication, authorization, and input validation.
-- Asynchronous JavaScript programming.
-- Event-driven application design.
-- In-memory caching and cache invalidation.
-- Containerization and service networking.
-- Persistent volumes and health checks.
-- Git-based version control and project documentation.
+## 🎓 Learning outcomes
 
-## 17. Conclusion
+Through the project, the student practises:
 
-The Student Portfolio & Task Management System brings together frontend development, backend APIs, database operations, authentication, caching, asynchronous processing, event-driven architecture, and Docker deployment in one progressive project.
+-   Component-based frontend development with React.
+-   REST API design and frontend/backend integration.
+-   MongoDB persistence and CRUD operations.
+-   JWT authentication, password hashing, and input validation.
+-   Async JavaScript, Promises, and `async/await`.
+-   Event-driven design and observable UI workflows.
+-   In-memory caching and cache invalidation.
+-   Docker images, Compose networking, health checks, and persistent
+    volumes.
+-   Automated linting, builds, and tests through GitHub Actions.
+-   Secure integration of an external AI provider.
+-   Safe environment-variable management and Git-based collaboration.
 
-The project provides a practical foundation for understanding full-stack application development, performance optimization, event handling, and containerized deployment.
+## Conclusion
+
+The Student Portfolio & Task Management System connects portfolio
+development with practical backend engineering. Across Practicals 1--13,
+it evolves from a React portfolio into an application demonstrating
+persistent task management, authentication, caching, asynchronous
+events, containerization, CI checks, and AI-assisted task descriptions.
+
+The AI feature remains intentionally user-controlled: it suggests text,
+the user reviews it, and the existing task workflow performs the save.
