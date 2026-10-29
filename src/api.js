@@ -49,6 +49,8 @@ export const api = {
   getCurrentUser: () => request('/me'),
   getTasks: () => request('/tasks'),
   createTask: (task) => request('/tasks', { method: 'POST', body: task }),
+  generateTaskDescription: (title) =>
+    request('/api/ai/generate-description', { method: 'POST', body: { title } }),
   updateTask: (id, task) => request(`/tasks/${id}`, { method: 'PUT', body: task }),
   deleteTask: (id) => request(`/tasks/${id}`, { method: 'DELETE' }),
   getAuthToken,

@@ -121,6 +121,7 @@ function Projects({ skills }) {
   const [newDescription, setNewDescription] = useState('');
   const [newPriority, setNewPriority] = useState('medium');
   const [isCreating, setIsCreating] = useState(false);
+  const [isGeneratingDescription, setIsGeneratingDescription] = useState(false);
 
   // Update & Delete States
   const [editingTask, setEditingTask] = useState(null);
@@ -283,6 +284,46 @@ function Projects({ skills }) {
       showToast(err.message || 'Failed to create task.', 'error');
     } finally {
       setIsCreating(false);
+    }
+  };
+
+  const handleGenerateDescription = async () => {
+    const title = newTitle.trim();
+    if (!title) {
+      showToast('Enter a task title before generating a description.', 'error');
+      return;
+    }
+    if (title.length > 160) {
+      showToast('Use a title of 160 characters or fewer for AI generation.', 'error');
+      return;
+    }
+
+    if (
+      newDescription.trim() &&
+      !window.confirm('Replace the description you have already written?')
+    ) {
+      return;
+    }
+
+    setIsGeneratingDescription(true);
+
+    try {
+      const result = await api.generateTaskDescription(title);
+      if (!result || typeof result.description !== 'string' || !result.description.trim()) {
+        throw new Error(
+          'The AI service returned an invalid response. You can enter a description manually.'
+        );
+      }
+
+      setNewDescription(result.description.trim());
+      showToast('AI suggestion added. Review and edit it before saving.', 'success');
+    } catch (err) {
+      showToast(
+        err.message || 'Unable to generate a description. You can enter one manually.',
+        'error'
+      );
+    } finally {
+      setIsGeneratingDescription(false);
     }
   };
 
@@ -453,7 +494,7 @@ function Projects({ skills }) {
                 value={newTitle}
                 onChange={(e) => setNewTitle(e.target.value)}
                 placeholder="Enter task title"
-                disabled={isCreating}
+                disabled={isCreating || isGeneratingDescription}
                 required
               />
             </div>
@@ -478,14 +519,30 @@ function Projects({ skills }) {
               value={newDescription}
               onChange={(e) => setNewDescription(e.target.value)}
               placeholder="Enter task details (optional)"
-              disabled={isCreating}
+              disabled={isCreating || isGeneratingDescription}
             />
+          </div>
+          <div className="ai-description-controls">
+            <button
+              type="button"
+              className="ai-generate-button"
+              onClick={handleGenerateDescription}
+              disabled={isCreating || isGeneratingDescription}
+            >
+              {isGeneratingDescription ? 'Generating...' : 'Generate Description'}
+            </button>
+            <p className="ai-description-disclaimer">
+              AI-generated suggestions may contain errors. Review and edit the description before using it.
+            </p>
+            <p className="ai-privacy-notice">
+              The task title is sent to Groq to generate this suggestion. Do not include sensitive information.
+            </p>
           </div>
           <button
             type="submit"
             className="retry-button"
             style={{ marginTop: '1rem' }}
-            disabled={isCreating}
+            disabled={isCreating || isGeneratingDescription}
           >
             {isCreating ? 'Creating Task...' : 'Add Task'}
           </button>

@@ -115,6 +115,108 @@ Deletes a task. Requires a valid bearer token.
 ### GET /test-error
 Deliberately triggers the global error handler.
 
+## Practical 13 — AI Task Description Suggestions
+
+The task creation form can request an editable description suggestion for its title. React sends only the title to the authenticated Express endpoint; the backend calls Groq using its official JavaScript SDK (`groq-sdk`) and returns the generated text. The selected model is `openai/gpt-oss-20b`, shown in Groq's [model catalog](https://console.groq.com/docs/models) and [model deprecation guidance](https://console.groq.com/docs/deprecations). Availability depends on the current Groq model catalog and account eligibility. The suggestion is not saved until the user submits the existing task form.
+
+```text
+React task form
+  -> POST /api/ai/generate-description (Bearer token, task title)
+  -> Express authentication, validation, and per-user cooldown
+  -> Groq openai/gpt-oss-20b (backend-only API key)
+  -> JSON suggestion displayed in the editable description field
+  -> Existing POST /tasks saves only after user confirmation
+```
+
+### Configuration and startup
+
+1. Install backend dependencies from `task-manager-api/` with `npm install`.
+2. If no backend `.env` exists, create it from `.env.example`:
+
+   ```powershell
+   Copy-Item .env.example .env
+   ```
+
+3. Create a key in the [Groq Console](https://console.groq.com/keys). Add `GROQ_API_KEY=your-key` to `task-manager-api/.env`, alongside `JWT_SECRET` and `MONGO_URI`. If `.env` already exists, edit it without replacing the file. Do not paste the key into chat, frontend settings, source code, or Git.
+4. Start MongoDB, then start the backend from `task-manager-api/` using `npm start`.
+5. From the repository root, start the frontend with `npm run dev`. The frontend uses `VITE_API_URL` if set, otherwise it connects to `http://localhost:5000`.
+
+The `.env` file is ignored by Git. `.env.example` contains only placeholders. The Groq key is read only by the backend and is never sent to React; the frontend receives only the generated description. The interface warns that the title is sent to an external AI provider, so do not include sensitive information.
+
+For Docker Compose, set `GROQ_API_KEY` in the shell before `docker compose up --build`; Compose passes it only to the backend container. Groq API access, model availability, rate limits, and any charges depend on the current provider terms and account eligibility. See the repository's `README-DOCKER.md` for the local Compose workflow.
+
+### Generate-description endpoint
+
+`POST http://localhost:5000/api/ai/generate-description`
+
+The endpoint requires the same bearer token used by other authenticated task features.
+
+```json
+{
+  "title": "Complete the database assignment"
+}
+```
+
+Successful response (`200`):
+
+```json
+{
+  "success": true,
+  "description": "Review the requirements and complete the database assignment."
+}
+```
+
+The description text comes from Groq; the example is illustrative. Empty, non-string, and over-160-character titles return `400`. Missing or invalid AI configuration, unavailable models, account restrictions, and upstream rate limits return safe `503` responses; timeouts return `504`, and network or other provider failures return safe `502` responses. Provider credentials and internal error details are not returned to the browser.
+
+The backend permits one AI request per authenticated user per minute. This conservative in-memory limit cannot be bypassed by changing the task title or request body, which is not yet a stable task ID at generation time. It resets on server restart and is not shared across multiple backend instances; production deployments should use a shared rate-limit store. A failed AI call also consumes the cooldown.
+
+### Manual verification with Postman
+
+1. Sign in through the existing `POST http://localhost:5000/login` endpoint and copy its token.
+2. Create a Postman `POST` request to `http://localhost:5000/api/ai/generate-description`.
+3. Set **Authorization** to **Bearer Token** and paste the token. Set `Content-Type: application/json`.
+4. Send `{"title":"Complete the database assignment"}`. With a valid locally configured key and available provider quota, expect HTTP `200` and a non-empty `description`.
+5. Send an empty title or a title longer than 160 characters; expect HTTP `400`.
+6. Send a request without a token; expect HTTP `401`. Make a second valid request within one minute; expect HTTP `429` and a `Retry-After` header.
+7. For the missing-key path, temporarily remove or blank `GROQ_API_KEY` in the local backend `.env`, restart the backend, then send a valid title; expect HTTP `503`. Restore the key locally if available. To test an invalid key, use a temporary invalid local value and restart; expect a safe failure response, then restore the key. Never share either key.
+
+To verify a real response locally in PowerShell, first start the backend with the valid key in `.env`, then sign in through the app and copy your JWT into the command below. A successful call returns `{ "success": true, "description": "..." }`. If the model is unavailable, check its current status in Groq's model catalog and verify your account access and usage limits.
+
+```powershell
+$headers = @{ Authorization = "Bearer YOUR_JWT" }
+$body = @{ title = "Complete the database assignment" } | ConvertTo-Json
+Invoke-RestMethod `
+  -Method Post `
+  -Uri "http://localhost:5000/api/ai/generate-description" `
+  -Headers $headers `
+  -ContentType "application/json" `
+  -Body $body
+```
+
+### Automated tests
+
+The AI route tests use injected mock generation functions and make no paid API requests:
+
+```powershell
+cd task-manager-api
+npm test
+```
+
+They cover successful response shape, title validation, missing configuration, sanitized Groq failures, authenticated access, and per-user cooldown enforcement. Groq SDK calls are mocked; a live response requires a valid key and is not part of automated testing.
+
+### Practical viva
+
+- **Why keep the API key on the backend?** Browser code is visible to users; a server-side key avoids exposing credentials.
+- **What is graceful degradation?** Task CRUD remains usable manually when AI generation is unavailable.
+- **Why show a loading state?** AI requests take time; feedback prevents confusion and repeated submissions.
+- **What happens when AI fails?** The UI shows a safe error and users can enter a description themselves.
+- **What are the privacy implications?** The task title is sent to a third-party provider, so sensitive information should not be included.
+- **Why is AI output editable?** Generated text can be incorrect or unsuitable and should be reviewed before saving.
+- **Why rate-limit?** It controls repeated usage and helps avoid unnecessary provider costs.
+- **Why not commit `.env`?** It may contain credentials that must remain private.
+- **How does React communicate with Express?** It sends an authenticated JSON `fetch` request to the backend route.
+- **How are provider failures tested without paid requests?** Automated tests inject mock Groq clients instead of making provider API calls.
+
 ## Example Requests
 
 ### Register

@@ -1,6 +1,6 @@
 # Docker Compose
 
-The React/Vite frontend is in the repository root, and the Express API is in `task-manager-api/`. The frontend Dockerfile is under `frontend/`; Compose uses the repository root as its build context so the existing Vite source and package files can be built without moving them. Both Node images use Node 20 because the repository's installed Vite, React plugin, Mongoose, and MongoDB driver require Node 20.19 or newer; Node 18 would not run this version of the app.
+The React/Vite frontend is in the repository root, and the Express API is in `task-manager-api/`. The frontend Dockerfile is under `frontend/`; Compose uses the repository root as its build context so the existing Vite source and package files can be built without moving them. The frontend build uses Node 20, while the backend uses Node 22.
 
 ## Start
 
@@ -13,7 +13,9 @@ docker compose up --build -d
 docker compose ps
 ```
 
-Open the frontend at <http://localhost:5173> and the API at <http://localhost:5000>. The API includes authenticated task routes; the current React routes do not include a task list/create screen, so task CRUD can be exercised through the API. The compose file sets a lab-only JWT secret for convenience; replace it with a private value for anything beyond local coursework.
+For AI description generation, provide `GROQ_API_KEY` through the shell before starting Compose. In PowerShell, set `$env:GROQ_API_KEY = "your-key"` locally; Compose passes it only to the backend container. Do not commit the key or put it in frontend variables. Groq API access, model availability, rate limits, and any charges depend on the current provider terms and your account eligibility.
+
+Open the frontend at <http://localhost:5173> and the API at <http://localhost:5000>. Sign in and open **Task Manager** at `/projects` to use task CRUD and the AI description suggestion. The compose file sets a lab-only JWT secret for convenience; replace it with a private value for anything beyond local coursework.
 
 To stop and remove containers while preserving MongoDB data:
 

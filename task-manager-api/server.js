@@ -7,6 +7,7 @@ const dotenv = require("dotenv");
 
 const User = require("./models/User");
 const taskRoutes = require("./routes/taskRoutes");
+const { createAiRouter } = require("./routes/aiRoutes");
 
 const { authMiddleware } = require("./middleware/auth");
 const { validateBody } = require("./middleware/validate");
@@ -205,6 +206,7 @@ app.get("/me", authMiddleware, async (req, res) => {
 });
 
 app.use("/tasks", taskRoutes);
+app.use("/api/ai", createAiRouter());
 
 // ====================================================
 // TEST ERROR
