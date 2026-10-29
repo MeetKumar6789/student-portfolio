@@ -29,7 +29,6 @@ automation, and AI-assisted task descriptions.
 ## Quick navigation
 
 -   [✨ Highlights](#-highlights)
--   [🧭 Practicals 1--13](#-practicals-113)
 -   [🏗️ Architecture](#️-architecture)
 -   [🧰 Technology stack](#-technology-stack)
 -   [🚀 Run locally](#-run-locally)
