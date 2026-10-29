@@ -9,7 +9,6 @@ Express · MongoDB · JWT · NodeCache · Docker · GitHub Actions · Groq AI
 <a href="https://github.com/MeetKumar6789/student-portfolio/actions/workflows/ci.yml">
 <img src="https://github.com/MeetKumar6789/student-portfolio/actions/workflows/ci.yml/badge.svg?branch=master" alt="CI Pipeline">
 </a>
-<img src="https://img.shields.io/badge/Practicals-01--13-4361ee" alt="Practicals 1 to 13">
 <img src="https://img.shields.io/badge/Frontend-React%20%2B%20Vite-61dafb" alt="React and Vite">
 <img src="https://img.shields.io/badge/Backend-Node.js%20%2B%20Express-339933" alt="Node.js and Express">
 <img src="https://img.shields.io/badge/Database-MongoDB-47A248" alt="MongoDB">
