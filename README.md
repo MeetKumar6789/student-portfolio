@@ -20,6 +20,8 @@ frontend development, REST APIs, database operations, authentication,
 caching, asynchronous workflows, event-driven design, Docker, CI
 automation, and AI-assisted task descriptions.
 
+
+
 > **Project principle:** AI suggestions are optional. Users can review
 > and edit generated text, and normal manual task creation remains
 > available if the AI provider is unavailable.
@@ -108,7 +110,7 @@ criteria.
 
 <details open>
 <summary>
-<strong>Practicals 1--4 · Portfolio
+<strong>Phase 1--4 · Portfolio
 foundation</strong>
 </summary>
 **Focus:** frontend structure and presentation.
@@ -124,7 +126,7 @@ foundation</strong>
 </details>
 <details>
 <summary>
-<strong>Practical 5 · Task management and
+<strong>Phase 5 · Task management and
 database</strong>
 </summary>
 **Focus:** persistent task data and CRUD operations.
@@ -136,7 +138,7 @@ database</strong>
 </details>
 <details>
 <summary>
-<strong>Practicals 6--8 · Backend and application
+<strong>Phase 6--8 · Backend and application
 integration</strong>
 </summary>
 **Focus:** API development and secure frontend/backend communication.
@@ -150,7 +152,7 @@ integration</strong>
 </details>
 <details>
 <summary>
-<strong>Practical 9 · Caching and performance</strong>
+<strong>Phase 9 · Caching and performance</strong>
 </summary>
 **Focus:** reducing repeated database reads with NodeCache.
 
@@ -164,7 +166,7 @@ integration</strong>
 </details>
 <details>
 <summary>
-<strong>Practical 10 · Asynchronous processing and event-driven
+<strong>Phase 10 · Asynchronous processing and event-driven
 architecture</strong>
 </summary>
 **Focus:** responsive asynchronous workflows and observable events.
@@ -191,7 +193,7 @@ architecture</strong>
 </details>
 <details>
 <summary>
-<strong>Practical 11 · Docker
+<strong>Phase 11 · Docker
 containerization</strong>
 </summary>
 **Focus:** packaging and running the application services together.
@@ -215,7 +217,7 @@ containerization</strong>
 </details>
 <details>
 <summary>
-<strong>Practical 12 · CI pipeline with GitHub
+<strong>Phase 12 · CI pipeline with GitHub
 Actions</strong>
 </summary>
 **Focus:** automatically checking changes before integration.
@@ -241,7 +243,7 @@ pushes to `master` and pull requests targeting `master`.
 </details>
 <details>
 <summary>
-<strong>Practical 13 · Groq AI task-description
+<strong>Phase 13 · Groq AI task-description
 generator</strong>
 </summary>
 **Focus:** adding an AI suggestion workflow without replacing normal
