@@ -1,28 +1,20 @@
 # Student Portfolio & Task Management System
 
-```{=html}
 <p align="center">
-```
-`<strong>`{=html}A full-stack portfolio that grows through 13
-practicals`</strong>`{=html}`<br>`{=html} React · Vite · Node.js ·
+<strong>A full-stack portfolio that grows through 13
+practicals</strong><br> React · Vite · Node.js ·
 Express · MongoDB · JWT · NodeCache · Docker · GitHub Actions · Groq AI
-```{=html}
 </p>
-```
-```{=html}
 <p align="center">
-```
-`<a href="https://github.com/MeetKumar6789/student-portfolio/actions/workflows/ci.yml">`{=html}
-`<img src="https://github.com/MeetKumar6789/student-portfolio/actions/workflows/ci.yml/badge.svg?branch=master" alt="CI Pipeline">`{=html}
-`</a>`{=html}
-`<img src="https://img.shields.io/badge/Practicals-01--13-4361ee" alt="Practicals 1 to 13">`{=html}
-`<img src="https://img.shields.io/badge/Frontend-React%20%2B%20Vite-61dafb" alt="React and Vite">`{=html}
-`<img src="https://img.shields.io/badge/Backend-Node.js%20%2B%20Express-339933" alt="Node.js and Express">`{=html}
-`<img src="https://img.shields.io/badge/Database-MongoDB-47A248" alt="MongoDB">`{=html}
-`<img src="https://img.shields.io/badge/Containers-Docker-2496ED" alt="Docker">`{=html}
-```{=html}
+<a href="https://github.com/MeetKumar6789/student-portfolio/actions/workflows/ci.yml">
+<img src="https://github.com/MeetKumar6789/student-portfolio/actions/workflows/ci.yml/badge.svg?branch=master" alt="CI Pipeline">
+</a>
+<img src="https://img.shields.io/badge/Practicals-01--13-4361ee" alt="Practicals 1 to 13">
+<img src="https://img.shields.io/badge/Frontend-React%20%2B%20Vite-61dafb" alt="React and Vite">
+<img src="https://img.shields.io/badge/Backend-Node.js%20%2B%20Express-339933" alt="Node.js and Express">
+<img src="https://img.shields.io/badge/Database-MongoDB-47A248" alt="MongoDB">
+<img src="https://img.shields.io/badge/Containers-Docker-2496ED" alt="Docker">
 </p>
-```
 A personal portfolio and task-management application built as a
 progressive full-stack project. Across 13 practicals, it brings together
 frontend development, REST APIs, database operations, authentication,
@@ -58,120 +50,56 @@ automation, and AI-assisted task descriptions.
 
 ## ✨ Highlights
 
-```{=html}
 <table>
-```
-```{=html}
 <tr>
-```
-```{=html}
 <td width="50%">
-```
-```{=html}
 <h3>
-```
 🌐 Portfolio experience
-```{=html}
 </h3>
-```
 Responsive React interface, reusable components, navigation, project
 information, contact form, and GitHub repository fetching.
-```{=html}
 </td>
-```
-```{=html}
 <td width="50%">
-```
-```{=html}
 <h3>
-```
 ✅ Task management
-```{=html}
 </h3>
-```
 Register and sign in, authenticate requests, and create, read, update,
 and delete tasks backed by MongoDB.
-```{=html}
 </td>
-```
-```{=html}
 </tr>
-```
-```{=html}
 <tr>
-```
-```{=html}
 <td>
-```
-```{=html}
 <h3>
-```
 ⚡ Performance
-```{=html}
 </h3>
-```
 NodeCache with a 60-second TTL, cache invalidation after mutations, and
 cache statistics for practical verification.
-```{=html}
 </td>
-```
-```{=html}
 <td>
-```
-```{=html}
 <h3>
-```
 🔔 Event monitoring
-```{=html}
 </h3>
-```
 A custom event bus, asynchronous contact-processing simulation,
 repository-fetch events, and a live event monitor.
-```{=html}
 </td>
-```
-```{=html}
 </tr>
-```
-```{=html}
 <tr>
-```
-```{=html}
 <td>
-```
-```{=html}
 <h3>
-```
 🐳 Containerization
-```{=html}
 </h3>
-```
 Docker Compose services for the frontend, Express API, and MongoDB, with
 service networking and persistent database storage.
-```{=html}
 </td>
-```
-```{=html}
 <td>
-```
-```{=html}
 <h3>
-```
 🧠 AI-assisted descriptions
-```{=html}
 </h3>
-```
 An authenticated backend endpoint uses Groq to suggest task descriptions
 from a title. Suggestions remain editable.
-```{=html}
 </td>
-```
-```{=html}
 </tr>
-```
-```{=html}
 </table>
-```
 ## 🧭 Practicals 1--13
 
 The project is documented as a progression from frontend foundations to
@@ -180,17 +108,11 @@ were grouped by phase in the original project notes; consult the
 individual reports for their exact prescribed titles and marking
 criteria.
 
-```{=html}
 <details open>
-```
-```{=html}
 <summary>
-```
-`<strong>`{=html}Practicals 1--4 · Portfolio
-foundation`</strong>`{=html}
-```{=html}
+<strong>Practicals 1--4 · Portfolio
+foundation</strong>
 </summary>
-```
 **Focus:** frontend structure and presentation.
 
 -   Build the portfolio interface and reusable components.
@@ -198,43 +120,27 @@ foundation`</strong>`{=html}
     -   Organize the application structure and frontend assets.
     -   Develop the foundation for later integrations.
 
-    `<em>`{=html}The source README groups these practicals together and
-    does not specify each practical's exact title.`</em>`{=html}
+    <em>The source README groups these practicals together and
+    does not specify each practical's exact title.</em>
 
-```{=html}
 </details>
-```
-```{=html}
 <details>
-```
-```{=html}
 <summary>
-```
-`<strong>`{=html}Practical 5 · Task management and
-database`</strong>`{=html}
-```{=html}
+<strong>Practical 5 · Task management and
+database</strong>
 </summary>
-```
 **Focus:** persistent task data and CRUD operations.
 
 -   Define the task model and connect to MongoDB.
     -   Implement create, read, update, and delete operations.
     -   Connect task-management behavior to the application.
 
-```{=html}
 </details>
-```
-```{=html}
 <details>
-```
-```{=html}
 <summary>
-```
-`<strong>`{=html}Practicals 6--8 · Backend and application
-integration`</strong>`{=html}
-```{=html}
+<strong>Practicals 6--8 · Backend and application
+integration</strong>
 </summary>
-```
 **Focus:** API development and secure frontend/backend communication.
 
 -   Progressively develop backend API functionality.
@@ -243,19 +149,11 @@ integration`</strong>`{=html}
     -   Use the individual practical reports for the exact titles and
         detailed requirements.
 
-```{=html}
 </details>
-```
-```{=html}
 <details>
-```
-```{=html}
 <summary>
-```
-`<strong>`{=html}Practical 9 · Caching and performance`</strong>`{=html}
-```{=html}
+<strong>Practical 9 · Caching and performance</strong>
 </summary>
-```
 **Focus:** reducing repeated database reads with NodeCache.
 
 -   Configure a 60-second time-to-live (TTL).
@@ -265,20 +163,12 @@ integration`</strong>`{=html}
     -   Understand the difference between in-memory cache data and
         persistent MongoDB data.
 
-```{=html}
 </details>
-```
-```{=html}
 <details>
-```
-```{=html}
 <summary>
-```
-`<strong>`{=html}Practical 10 · Asynchronous processing and event-driven
-architecture`</strong>`{=html}
-```{=html}
+<strong>Practical 10 · Asynchronous processing and event-driven
+architecture</strong>
 </summary>
-```
 **Focus:** responsive asynchronous workflows and observable events.
 
 -   Use Promises, `async/await`, and `try/catch/finally`.
@@ -300,20 +190,12 @@ architecture`</strong>`{=html}
     > Contact processing is a simulation. It does not send real emails
     > or use a production message broker.
 
-```{=html}
 </details>
-```
-```{=html}
 <details>
-```
-```{=html}
 <summary>
-```
-`<strong>`{=html}Practical 11 · Docker
-containerization`</strong>`{=html}
-```{=html}
+<strong>Practical 11 · Docker
+containerization</strong>
 </summary>
-```
 **Focus:** packaging and running the application services together.
 
 -   Build frontend and backend images.
@@ -332,20 +214,12 @@ containerization`</strong>`{=html}
 
     Actual port mappings are defined in `docker-compose.yml`.
 
-```{=html}
 </details>
-```
-```{=html}
 <details>
-```
-```{=html}
 <summary>
-```
-`<strong>`{=html}Practical 12 · CI pipeline with GitHub
-Actions`</strong>`{=html}
-```{=html}
+<strong>Practical 12 · CI pipeline with GitHub
+Actions</strong>
 </summary>
-```
 **Focus:** automatically checking changes before integration.
 
 The workflow in `.github/workflows/ci.yml` is documented to run on
@@ -366,20 +240,12 @@ pushes to `master` and pull requests targeting `master`.
     > links were pending. Add real GitHub Actions run links after
     > verifying the runs in the repository's **Actions** tab.
 
-```{=html}
 </details>
-```
-```{=html}
 <details>
-```
-```{=html}
 <summary>
-```
-`<strong>`{=html}Practical 13 · Groq AI task-description
-generator`</strong>`{=html}
-```{=html}
+<strong>Practical 13 · Groq AI task-description
+generator</strong>
 </summary>
-```
 **Focus:** adding an AI suggestion workflow without replacing normal
 task creation.
 
@@ -423,9 +289,7 @@ task creation.
     Provider availability, supported models, rate limits, and charges
     depend on Groq's current account terms and model availability.
 
-```{=html}
 </details>
-```
 ## 🏗️ Architecture
 
 ``` mermaid
@@ -701,59 +565,35 @@ flowchart LR
 
 ### Troubleshooting
 
-```{=html}
 <details>
-```
-```{=html}
 <summary>
-```
-`<strong>`{=html}AI request returns 401 or 403`</strong>`{=html}
-```{=html}
+<strong>AI request returns 401 or 403</strong>
 </summary>
-```
 Check that `GROQ_API_KEY` is present in the backend environment, valid,
 and permitted for the selected model. Verify the model name against
 Groq's current model documentation and check account/project
 restrictions. Restart the backend after changing `.env`. Never print the
 key in logs.
-```{=html}
 </details>
-```
-```{=html}
 <details>
-```
-```{=html}
 <summary>
-```
-`<strong>`{=html}AI request returns 429`</strong>`{=html}
-```{=html}
+<strong>AI request returns 429</strong>
 </summary>
-```
 The app's per-user cooldown may be active, or the provider may be
 enforcing its own rate limit. Wait for the app cooldown to expire and
 inspect sanitized backend diagnostics before retrying.
-```{=html}
 </details>
-```
-```{=html}
 <details>
-```
-```{=html}
 <summary>
-```
-`<strong>`{=html}AI request returns 502 or an empty
-description`</strong>`{=html}
-```{=html}
+<strong>AI request returns 502 or an empty
+description</strong>
 </summary>
-```
 Inspect the backend's sanitized error category and verify that the
 installed Groq SDK response is parsed correctly, including
 `choices[0].message.content`. Handle missing or whitespace-only content
 safely. Do not log the task title, API key, authorization header, or raw
 provider response.
-```{=html}
 </details>
-```
 Official links: [Groq API keys](https://console.groq.com/keys) · [Groq
 documentation](https://console.groq.com/docs) · [Groq
 models](https://console.groq.com/docs/models)
