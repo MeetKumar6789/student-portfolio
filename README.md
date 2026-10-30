@@ -1,8 +1,8 @@
-                # Student Portfolio & Task Management System
+# Student Portfolio & Task Management System
 
 <p align="center">
 <strong>A full-stack portfolio that grows through 13
-practicals</strong><br> React · Vite · Node.js ·
+Phases</strong><br> React · Vite · Node.js ·
 Express · MongoDB · JWT · NodeCache · Docker · GitHub Actions · Groq AI
 </p>
 <p align="center">
