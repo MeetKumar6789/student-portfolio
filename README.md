@@ -768,7 +768,7 @@ Through the project, the student practises:
 ## Conclusion
 
 The Student Portfolio & Task Management System connects portfolio
-development with practical backend engineering. Across Practicals 1--13,
+development with practical backend engineering. Across all Phases 1--13,
 it evolves from a React portfolio into an application demonstrating
 persistent task management, authentication, caching, asynchronous
 events, containerization, CI checks, and AI-assisted task descriptions.
